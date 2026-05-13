@@ -1,6 +1,7 @@
 """AI CoPilot helper for QubiWare AI."""
 
 import os
+import re
 from datetime import datetime
 
 import pandas as pd
@@ -32,7 +33,10 @@ RESPONSE FORMAT INSTRUCTIONS:
 - Start with a brief executive summary
 - Include a "Recommended Actions" section at the end with numbered steps
 - Keep responses professional and concise
-- Format numbers with commas for readability"""
+- Format numbers with commas for readability
+- When the user names one or more SKUs, use ONLY the numbers in the section
+  "USER-MENTIONED SKU DETAIL" for those SKUs. Do not invent stock or reorder levels.
+- Reorder in this system is flagged when current_stock <= reorder_level (inclusive)."""
 
 
 def build_data_context(data):
@@ -156,6 +160,56 @@ ORDERS BY STATUS:
     return context
 
 
+def extract_sku_ids_from_question(question):
+    """Return unique SKU-XXXX ids mentioned in natural language (order preserved)."""
+    if not question or not isinstance(question, str):
+        return []
+    seen = set()
+    out = []
+    for m in re.finditer(r"(?i)\b(SKU-\d+)\b", question):
+        sid = m.group(1).upper()
+        if sid not in seen:
+            seen.add(sid)
+            out.append(sid)
+    for m in re.finditer(r"(?i)\bsku\s*#?\s*[:-]?\s*(\d{3,6})\b", question):
+        sid = f"SKU-{m.group(1)}"
+        if sid not in seen:
+            seen.add(sid)
+            out.append(sid)
+    return out
+
+
+def supplement_context_with_skus(context, question, inv_df):
+    """Append full inventory rows for any SKUs named in the question (for LLM grounding)."""
+    sku_ids = extract_sku_ids_from_question(question)
+    if not sku_ids or inv_df is None or len(inv_df) == 0:
+        return context
+    col = "sku_id"
+    if col not in inv_df.columns:
+        return context
+    key = inv_df[col].astype(str).str.upper()
+    blocks = []
+    for sid in sku_ids[:8]:
+        rows = inv_df[key == sid.upper()]
+        if len(rows) == 0:
+            blocks.append(f"- {sid}: not found in inventory master (sku_id).")
+            continue
+        r = rows.iloc[0]
+        cols = [c for c in inv_df.columns if c in r.index]
+        blocks.append(rows[cols].to_string(index=False))
+        try:
+            cs = int(r["current_stock"])
+            rl = int(r["reorder_level"])
+            mx = int(r["max_stock"]) if "max_stock" in r.index else None
+            rule = "current_stock <= reorder_level → flagged for reorder in this app" if cs <= rl else "current_stock > reorder_level → not in low-stock set by rule"
+            rec = f"; suggested top-up toward max: {max(0, mx - cs)} units" if mx is not None else ""
+            blocks.append(f"  Policy check for {sid}: stock={cs}, reorder_level={rl} → {rule}{rec}.")
+        except (TypeError, ValueError, KeyError):
+            pass
+    extra = "\n\nUSER-MENTIONED SKU DETAIL (authoritative; answer using these facts only):\n" + "\n".join(blocks)
+    return context + extra
+
+
 def ask_ai_gemini(question, context, api_key):
     """Query Gemini API using the new google.genai SDK."""
     client = genai.Client(api_key=api_key)
@@ -170,14 +224,15 @@ def ask_ai_gemini(question, context, api_key):
 def ask_ai_openai(question, context, api_key):
     """Query OpenAI API."""
     client = openai.OpenAI(api_key=api_key)
+    model = os.environ.get("OPENAI_MODEL", "gpt-4o-mini").strip() or "gpt-4o-mini"
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model=model,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": f"DATA CONTEXT:\n{context}\n\nQUESTION: {question}"}
         ],
-        max_tokens=1000,
-        temperature=0.3
+        max_tokens=2500,
+        temperature=0.2
     )
     return response.choices[0].message.content
 
@@ -302,6 +357,77 @@ def ask_ai_fallback(question, data):
             (f"{kpis['Warehouse Utilization %']}%", "Utilization", "#8B5CF6"),
         ])
         return _ai_html_panel("QubiWare AI CoPilot &mdash; Warehouse Intelligence Only", "linear-gradient(135deg,#2563EB,#06B6D4)", body)
+
+    # ─── Named SKU: stock / reorder rationale (before generic top-10 reorder list) ───
+    sku_ids = extract_sku_ids_from_question(question)
+    dispatch_or_order_focus = any(
+        x in q
+        for x in (
+            "delay", "delayed", "late", "overdue", "pending order", "order status",
+            "dispatch", "shipment", "delivered", "transit", "picker", "picking",
+            "loading bay", "route ", "customer impact", "supplier issue", "inbound mismatch",
+        )
+    )
+    inv_focus_kw = (
+        "reorder", "re-stock", "restock", "stock", "low stock", "inventory", "on hand",
+        "quantity", "units", "level", "procurement", "stockout", "out of stock", "why",
+        "explain", "need to order", "running low", "tell me about", "details for",
+        "information on", "what about", "describe", "overview", "status of",
+    )
+    if sku_ids and not dispatch_or_order_focus and (
+        any(k in q for k in inv_focus_kw) or len(q) < 52
+    ):
+        from utils.analytics import get_low_stock_items
+        low = get_low_stock_items(inv)
+        low_set = set(low["sku_id"].astype(str).str.upper()) if len(low) > 0 else set()
+        body = '<div style="font-size:0.85rem;color:#374151;line-height:1.65;margin-bottom:12px;">Facts from your <strong>inventory master</strong> for the SKU(s) you named. Reorder here means <strong>current stock &le; reorder level</strong> (inclusive).</div>'
+        for sid in sku_ids[:5]:
+            match = inv[inv["sku_id"].astype(str).str.upper() == sid.upper()]
+            if len(match) == 0:
+                body += _ai_section_label(f"{sid} — not found", "#94A3B8")
+                body += f'<div style="font-size:0.82rem;color:#64748B;">No row with <code>sku_id</code> matching <strong>{sid}</strong>. Check spelling or Inventory export.</div>'
+                continue
+            r = match.iloc[0]
+            cs = int(r["current_stock"])
+            rl = int(r["reorder_level"])
+            mx = int(r["max_stock"]) if "max_stock" in r.index and pd.notna(r["max_stock"]) else None
+            is_low = sid.upper() in low_set
+            shortfall = max(0, rl - cs)
+            body += _ai_section_label(f"{r['sku_id']} — {str(r['product_name'])[:40]}", "#2563EB")
+            body += _ai_kpi_row([
+                (f"{cs:,}", "On hand", "#111827"),
+                (f"{rl:,}", "Reorder level", "#64748B"),
+                (f"{mx:,}" if mx is not None else "—", "Max stock", "#64748B"),
+                ("Yes" if is_low else "No", "Reorder flag", "#EF4444" if is_low else "#10B981"),
+            ])
+            if is_low:
+                rec = max(0, (mx or cs) - cs)
+                sf = f" (shortfall vs. reorder level: <strong>{shortfall:,}</strong> units)" if shortfall > 0 else " (at reorder threshold)"
+                body += (
+                    f'<div style="font-size:0.82rem;color:#374151;line-height:1.7;margin-bottom:10px;">'
+                    f'<strong>Why reorder is required:</strong> on-hand <strong>{cs:,}</strong> is at or below the configured reorder level <strong>{rl:,}</strong>{sf}. '
+                    f"The SKU is in the <strong>low-stock</strong> set, so procurement should plan replenishment"
+                    + (f" (up to <strong>{rec:,}</strong> units toward max stock if you target max)." if mx is not None else ".")
+                    + "</div>"
+                )
+            else:
+                body += (
+                    f'<div style="font-size:0.82rem;color:#374151;line-height:1.7;margin-bottom:10px;">'
+                    f"<strong>Reorder not required by rule:</strong> on-hand <strong>{cs:,}</strong> is above reorder level <strong>{rl:,}</strong>. "
+                    "If you still see a reorder alert elsewhere, it may be a different rule or stale data—compare with this snapshot.</div>"
+                )
+            show_cols = ["warehouse_zone", "supplier_name", "avg_daily_sales", "category"]
+            sc = [c for c in show_cols if c in r.index and pd.notna(r.get(c))]
+            if sc:
+                body += '<div style="font-size:0.78rem;color:#64748B;margin-bottom:8px;">' + " &middot; ".join(
+                    f"<strong>{c.replace('_', ' ')}</strong>: {r[c]}" for c in sc
+                ) + "</div>"
+        body += _ai_section_label("Recommended actions", "#2563EB")
+        body += _ai_action_list([
+            "<strong>Align with procurement</strong> using the numbers above; do not rely on generic summaries for named SKUs.",
+            "<strong>Validate master data</strong> if reorder level looks mis-set vs. real lead time and demand.",
+        ])
+        return _ai_html_panel("SKU-specific inventory & reorder check", "linear-gradient(135deg,#0EA5E9,#2563EB)", body)
 
     # ─── Broad keyword matching for warehouse queries ───
     if "low stock" in q or "low-stock" in q or "reorder" in q or "stock risk" in q or "stockout" in q or "out of stock" in q or "running low" in q or "need to order" in q or "procurement" in q:
@@ -766,20 +892,50 @@ def get_ai_response(question, data):
     """Main function to get AI response - tries API first, falls back to rules."""
     gemini_key = os.environ.get("GEMINI_API_KEY", "")
     openai_key = os.environ.get("OPENAI_API_KEY", "")
+    provider = (os.environ.get("AI_PROVIDER") or "").strip().lower()
+    use_gemini_first = provider in ("gemini", "google")
 
     context = build_data_context(data)
+    inv = data.get("inventory")
+    if inv is not None:
+        context = supplement_context_with_skus(context, question, inv)
 
-    if gemini_key and GEMINI_AVAILABLE:
-        try:
-            return ask_ai_gemini(question, context, gemini_key)
-        except Exception as e:
-            return f"Gemini API error: {str(e)}\n\nFalling back to rule-based analysis...\n\n" + ask_ai_fallback(question, data)
+    def _fallback_with_error(name, err):
+        return f"{name} API error: {str(err)}\n\nFalling back to rule-based analysis...\n\n" + ask_ai_fallback(question, data)
 
-    elif openai_key and OPENAI_AVAILABLE:
-        try:
-            return ask_ai_openai(question, context, openai_key)
-        except Exception as e:
-            return f"OpenAI API error: {str(e)}\n\nFalling back to rule-based analysis...\n\n" + ask_ai_fallback(question, data)
-
+    if use_gemini_first:
+        if gemini_key and GEMINI_AVAILABLE:
+            try:
+                return ask_ai_gemini(question, context, gemini_key)
+            except Exception as e:
+                err = e
+                if openai_key and OPENAI_AVAILABLE:
+                    try:
+                        return ask_ai_openai(question, context, openai_key)
+                    except Exception as e2:
+                        return _fallback_with_error("OpenAI", e2)
+                return _fallback_with_error("Gemini", err)
+        if openai_key and OPENAI_AVAILABLE:
+            try:
+                return ask_ai_openai(question, context, openai_key)
+            except Exception as e:
+                return _fallback_with_error("OpenAI", e)
     else:
-        return ask_ai_fallback(question, data)
+        if openai_key and OPENAI_AVAILABLE:
+            try:
+                return ask_ai_openai(question, context, openai_key)
+            except Exception as e:
+                err = e
+                if gemini_key and GEMINI_AVAILABLE:
+                    try:
+                        return ask_ai_gemini(question, context, gemini_key)
+                    except Exception as e2:
+                        return _fallback_with_error("Gemini", e2)
+                return _fallback_with_error("OpenAI", err)
+        if gemini_key and GEMINI_AVAILABLE:
+            try:
+                return ask_ai_gemini(question, context, gemini_key)
+            except Exception as e:
+                return _fallback_with_error("Gemini", e)
+
+    return ask_ai_fallback(question, data)

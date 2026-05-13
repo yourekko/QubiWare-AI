@@ -26,8 +26,11 @@ def _safe_col(df: pd.DataFrame, *names: str) -> Optional[pd.Series]:
     return None
 
 
-def _apply_bold_escape(s: str) -> str:
+def _apply_bold_escape(s) -> str:
     """Turn **label** into <strong> after escaping each segment."""
+    if s is None:
+        return ""
+    s = str(s)
     parts = re.split(r"\*\*(.+?)\*\*", s)
     out = []
     for i, part in enumerate(parts):
@@ -92,11 +95,14 @@ def rule_based_wow(table_key: str, df: pd.DataFrame, title: str, subtitle: str) 
         if stc is not None and sku is not None:
             nums = pd.to_numeric(stc.astype(str).str.replace(",", "", regex=False), errors="coerce")
             if nums.notna().any():
-                i = nums.idxmin()
-                line1 = (
-                    f"Tightest line is **{sku.loc[i]}** at about **{_fmt_int(stc.loc[i])}** units on hand — "
-                    f"that SKU should headline today's buy list alongside {max(0, n - 1)} other low-stock lines."
-                )
+                try:
+                    i = nums.idxmin()
+                    line1 = (
+                        f"Tightest line is **{sku.loc[i]}** at about **{_fmt_int(stc.loc[i])}** units on hand — "
+                        f"that SKU should headline today's buy list alongside {max(0, n - 1)} other low-stock lines."
+                    )
+                except (ValueError, TypeError, KeyError):
+                    pass
         return f"{line1}\n• {b1}\n• {b2}"
 
     if key == "inv_overstock":
@@ -109,7 +115,10 @@ def rule_based_wow(table_key: str, df: pd.DataFrame, title: str, subtitle: str) 
 
     if key == "inv_dead_stock":
         di = _safe_col(df, "Days Inactive", "days_inactive")
-        mx = int(di.max()) if di is not None and len(di) else 0
+        mx = 0
+        if di is not None and len(di):
+            raw_mx = pd.to_numeric(di, errors="coerce").max()
+            mx = int(raw_mx) if pd.notna(raw_mx) else 0
         return (
             f"{n} SKUs show no meaningful movement; longest idle stretch in view is about **{mx}** days.\n"
             "• **Cash:** freeze discretionary buys on these SKUs until disposition is agreed.\n"
@@ -180,7 +189,10 @@ def rule_based_wow(table_key: str, df: pd.DataFrame, title: str, subtitle: str) 
 
     if key == "disp_delayed":
         dd = _safe_col(df, "Delay (days)", "delay_days")
-        mx = int(pd.to_numeric(dd, errors="coerce").max()) if dd is not None else 0
+        mx = 0
+        if dd is not None:
+            raw_mx = pd.to_numeric(dd, errors="coerce").max()
+            mx = int(raw_mx) if pd.notna(raw_mx) else 0
         cust = _safe_col(df, "Customer", "customer_name")
         cust0 = str(cust.iloc[0]) if cust is not None and len(cust) else "top customers"
         return (
@@ -306,11 +318,33 @@ def _fetch_openai_table_insight(table_key: str, title: str, subtitle: str, csv_s
         max_tokens=260,
         temperature=0.35,
     )
-    return (resp.choices[0].message.content or "").strip()
+    raw = resp.choices[0].message.content
+    if raw is None:
+        return ""
+    if isinstance(raw, list):
+        parts = []
+        for block in raw:
+            if isinstance(block, dict) and block.get("type") == "text":
+                parts.append(block.get("text") or "")
+            else:
+                parts.append(getattr(block, "text", str(block)))
+        return "".join(parts).strip()
+    return str(raw).strip()
 
 
 def get_table_wow_html(table_key: str, title: str, subtitle: str, df: pd.DataFrame) -> str:
     """Return HTML block to pass as wow_insight_html to df_to_styled_table."""
+    try:
+        return _get_table_wow_html_impl(table_key, title, subtitle, df)
+    except Exception:
+        return format_wow_html(
+            "AI insight could not be generated for this table in this session.\n"
+            "• **Action:** refresh the page or set TABLE_WOW_DISABLE_OPENAI=1 to use rule-only insights.\n"
+            "• **Verify:** OPENAI_API_KEY in Secrets and that the latest app commit is deployed."
+        )
+
+
+def _get_table_wow_html_impl(table_key: str, title: str, subtitle: str, df: pd.DataFrame) -> str:
     if df is None:
         return format_wow_html(rule_based_wow(table_key, pd.DataFrame(), title, subtitle))
 
@@ -322,7 +356,9 @@ def get_table_wow_html(table_key: str, title: str, subtitle: str, df: pd.DataFra
         snippet = snippet[:12000]
     digest = hashlib.md5(f"{table_key}|{snippet}".encode()).hexdigest()
 
-    bucket = st.session_state.setdefault("_table_wow_cache_v1", {})
+    if "_table_wow_cache_v1" not in st.session_state:
+        st.session_state["_table_wow_cache_v1"] = {}
+    bucket = st.session_state["_table_wow_cache_v1"]
     cache_key = f"{table_key}:{digest}"
     if cache_key in bucket:
         return bucket[cache_key]

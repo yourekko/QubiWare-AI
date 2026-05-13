@@ -34,6 +34,10 @@ try:
     import markdown
 except ImportError:
     markdown = None
+
+import html as html_stdlib
+
+from utils.ai_helper import get_copilot_reply
 from utils.report_generator import generate_pdf_report
 
 # ─── Page Configuration ──────────────────────────────────────────────

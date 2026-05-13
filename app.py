@@ -863,11 +863,6 @@ elif page == "Executive Dashboard":
 elif page == "Inventory Intelligence":
     render_header("Inventory Intelligence", "Low stock, overstock, dead stock and reorder recommendations")
 
-    st.info(
-        "For tomorrow’s talking points: scroll the tab row to the right for **Dead Stock Analysis**, **Liquidation Strategies**, and **Resource & charges** "
-        "(why stock is not moving, perishable loss, recovery options, and how to cut storage/energy cost)."
-    )
-
     inv = data["inventory"]
     low_stock = get_low_stock_items(inv)
     overstock = get_overstock_items(inv)

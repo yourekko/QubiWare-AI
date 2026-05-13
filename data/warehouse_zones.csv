@@ -1,0 +1,9 @@
+zone_id,zone_name,capacity_units,used_units,zone_type,manager_name,zone_status,allowed_vehicle_types,max_vehicle_capacity_tons,expected_critical_until,congestion_reason,energy_cost_per_day,zone_throughput_rate,revenue_potential_per_day,utilization_trend
+Z-A,Zone A - Fast Moving,5000,4220,Fast Moving,Rajesh Kumar,Warning,"Mini Truck,LCV,HCV",6.2,2026-05-30,Inbound Backlog,1753.03,485,96754.45,Decreasing
+Z-B,Zone B - General Storage,8000,7450,General,Priya Sharma,Critical,"Mini Truck,LCV,HCV",6.8,2026-06-05,Inbound Backlog,788.94,388,51559.86,Increasing
+Z-C,Zone C - Cold Storage,3000,2045,Cold Storage,Amit Patel,Normal,"Mini Truck,LCV",4.9,,,3637.7,442,33142.25,Increasing
+Z-D,Zone D - Bulk Storage,10000,9390,Bulk,Sanjay Gupta,Critical,"LCV,HCV",18.7,2026-06-10,Layout Inefficiency,1314.69,155,71021.68,Increasing
+Z-E,Zone E - Hazardous,2000,1196,Hazardous,Deepa Nair,Normal,"Mini Truck,LCV",2.8,,,3005.75,289,82758.59,Increasing
+Z-F,Zone F - Returns,4000,1925,Returns,Vikram Singh,Normal,"Mini Truck,LCV,Three Wheeler",3.7,,,954.31,320,53823.1,Increasing
+Z-G,Zone G - High Value,2500,2209,High Value,Meera Joshi,Warning,"Mini Truck,LCV",6.3,2026-06-09,Inbound Backlog,2347.81,104,91841.9,Increasing
+Z-H,Zone H - Overflow,6000,3905,Overflow,Arjun Reddy,Normal,"Mini Truck,LCV,HCV",14.8,,,933.93,312,24286.97,Decreasing

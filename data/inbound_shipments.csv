@@ -1,0 +1,151 @@
+shipment_id,supplier_name,sku_id,expected_date,received_date,quantity_expected,quantity_received,status
+SHP-5000,Tata Supply Co.,SKU-1142,2026-04-30,2026-05-02,134,109,Received
+SHP-5001,Tata Supply Co.,SKU-1075,2026-04-29,2026-04-29,498,498,Received
+SHP-5002,Infosys Materials,SKU-1008,2026-04-29,2026-05-02,145,145,Received
+SHP-5003,Bajaj Distributors,SKU-1271,2026-04-29,2026-04-29,230,230,Received
+SHP-5004,Godrej Warehouse Supplies,SKU-1220,2026-05-07,2026-05-10,127,127,Received
+SHP-5005,HCL Packaging,SKU-1170,2026-05-12,2026-05-12,275,275,Received
+SHP-5006,Reliance Logistics,SKU-1195,2026-04-30,2026-05-03,149,149,Received
+SHP-5007,Mahindra Parts Ltd.,SKU-1141,2026-04-27,2026-04-30,361,361,Received
+SHP-5008,Tata Supply Co.,SKU-1025,2026-04-23,,177,0,Delayed
+SHP-5009,Infosys Materials,SKU-1058,2026-05-12,2026-05-12,68,62,Received
+SHP-5010,HCL Packaging,SKU-1051,2026-05-05,,165,0,Delayed
+SHP-5011,Hero Supply Corp.,SKU-1207,2026-05-01,2026-05-03,251,251,Received
+SHP-5012,Wipro Components,SKU-1105,2026-05-08,2026-05-10,452,452,Received
+SHP-5013,Hero Supply Corp.,SKU-1147,2026-05-13,2026-05-16,98,98,Received
+SHP-5014,Hero Supply Corp.,SKU-1156,2026-05-06,2026-05-06,137,137,Received
+SHP-5015,Mahindra Parts Ltd.,SKU-1095,2026-05-03,2026-05-03,283,283,Received
+SHP-5016,Bajaj Distributors,SKU-1242,2026-04-30,2026-05-02,221,221,Received
+SHP-5017,Tata Supply Co.,SKU-1087,2026-05-13,2026-05-16,354,354,Received
+SHP-5018,L&T Raw Materials,SKU-1000,2026-04-28,2026-04-28,497,497,Received
+SHP-5019,Reliance Logistics,SKU-1008,2026-04-25,,398,0,Delayed
+SHP-5020,Infosys Materials,SKU-1268,2026-04-27,,135,0,In Transit
+SHP-5021,Tata Supply Co.,SKU-1051,2026-05-04,,461,0,In Transit
+SHP-5022,Wipro Components,SKU-1251,2026-05-02,2026-05-05,329,329,Received
+SHP-5023,Bharti Supply Chain,SKU-1186,2026-04-29,,56,0,In Transit
+SHP-5024,Bharti Supply Chain,SKU-1170,2026-04-27,2026-04-29,446,380,Received
+SHP-5025,Tata Supply Co.,SKU-1138,2026-04-27,2026-04-27,422,365,Received
+SHP-5026,Infosys Materials,SKU-1072,2026-05-02,2026-05-05,304,304,Received
+SHP-5027,Godrej Warehouse Supplies,SKU-1105,2026-05-11,,149,0,Delayed
+SHP-5028,Adani Industrial,SKU-1055,2026-05-05,2026-05-07,499,437,Received
+SHP-5029,HCL Packaging,SKU-1089,2026-05-05,2026-05-07,397,397,Received
+SHP-5030,Adani Industrial,SKU-1213,2026-05-05,2026-05-07,208,208,Received
+SHP-5031,L&T Raw Materials,SKU-1062,2026-04-30,2026-05-02,457,457,Received
+SHP-5032,Bharti Supply Chain,SKU-1056,2026-05-13,,305,0,Delayed
+SHP-5033,Mahindra Parts Ltd.,SKU-1238,2026-05-09,,317,0,Delayed
+SHP-5034,L&T Raw Materials,SKU-1285,2026-05-08,2026-05-08,205,205,Received
+SHP-5035,Bharti Supply Chain,SKU-1007,2026-04-29,2026-04-29,70,70,Received
+SHP-5036,Reliance Logistics,SKU-1250,2026-05-04,2026-05-04,52,52,Received
+SHP-5037,Reliance Logistics,SKU-1128,2026-05-09,,229,0,Delayed
+SHP-5038,HCL Packaging,SKU-1287,2026-05-09,,94,0,In Transit
+SHP-5039,Mahindra Parts Ltd.,SKU-1100,2026-04-30,,349,0,Delayed
+SHP-5040,Bharti Supply Chain,SKU-1112,2026-05-12,,292,0,Delayed
+SHP-5041,Infosys Materials,SKU-1197,2026-04-30,,254,0,Delayed
+SHP-5042,Tata Supply Co.,SKU-1133,2026-05-04,2026-05-07,355,355,Received
+SHP-5043,Bajaj Distributors,SKU-1165,2026-04-25,2026-04-25,121,108,Received
+SHP-5044,Mahindra Parts Ltd.,SKU-1213,2026-04-26,2026-04-26,152,152,Received
+SHP-5045,Bharti Supply Chain,SKU-1290,2026-04-23,2026-04-24,286,231,Received
+SHP-5046,Adani Industrial,SKU-1049,2026-05-09,2026-05-11,319,319,Received
+SHP-5047,HCL Packaging,SKU-1183,2026-04-29,2026-05-02,231,231,Received
+SHP-5048,Adani Industrial,SKU-1236,2026-05-13,2026-05-16,336,336,Received
+SHP-5049,Tata Supply Co.,SKU-1071,2026-04-24,,204,0,In Transit
+SHP-5050,L&T Raw Materials,SKU-1262,2026-05-02,2026-05-04,115,101,Received
+SHP-5051,Reliance Logistics,SKU-1201,2026-05-09,2026-05-10,256,218,Received
+SHP-5052,Wipro Components,SKU-1027,2026-05-11,2026-05-11,78,78,Received
+SHP-5053,Godrej Warehouse Supplies,SKU-1049,2026-05-04,2026-05-06,339,339,Received
+SHP-5054,Reliance Logistics,SKU-1062,2026-04-25,2026-04-27,395,384,Received
+SHP-5055,Hero Supply Corp.,SKU-1104,2026-04-27,2026-04-28,123,114,Received
+SHP-5056,Infosys Materials,SKU-1079,2026-05-04,2026-05-04,371,371,Received
+SHP-5057,Wipro Components,SKU-1102,2026-05-10,2026-05-10,84,84,Received
+SHP-5058,HCL Packaging,SKU-1049,2026-05-06,2026-05-06,154,154,Received
+SHP-5059,HCL Packaging,SKU-1227,2026-05-01,,78,0,Delayed
+SHP-5060,Bharti Supply Chain,SKU-1207,2026-04-28,,144,0,In Transit
+SHP-5061,HCL Packaging,SKU-1133,2026-04-24,2026-04-24,398,398,Received
+SHP-5062,Adani Industrial,SKU-1074,2026-04-23,2026-04-24,61,61,Received
+SHP-5063,Mahindra Parts Ltd.,SKU-1261,2026-04-26,2026-04-28,152,152,Received
+SHP-5064,Bharti Supply Chain,SKU-1051,2026-04-25,2026-04-27,302,302,Received
+SHP-5065,Adani Industrial,SKU-1197,2026-05-10,2026-05-13,287,287,Received
+SHP-5066,Mahindra Parts Ltd.,SKU-1014,2026-05-04,2026-05-07,284,284,Received
+SHP-5067,Reliance Logistics,SKU-1297,2026-05-04,2026-05-06,67,55,Received
+SHP-5068,Reliance Logistics,SKU-1181,2026-05-09,,289,0,Delayed
+SHP-5069,Wipro Components,SKU-1141,2026-05-13,2026-05-14,131,131,Received
+SHP-5070,Godrej Warehouse Supplies,SKU-1268,2026-05-01,2026-05-02,312,312,Received
+SHP-5071,Godrej Warehouse Supplies,SKU-1288,2026-05-03,,285,0,In Transit
+SHP-5072,Mahindra Parts Ltd.,SKU-1142,2026-05-04,2026-05-07,251,251,Received
+SHP-5073,Adani Industrial,SKU-1241,2026-04-24,2026-04-26,387,387,Received
+SHP-5074,Mahindra Parts Ltd.,SKU-1165,2026-04-25,2026-04-28,347,347,Received
+SHP-5075,Tata Supply Co.,SKU-1023,2026-05-13,,486,0,In Transit
+SHP-5076,Infosys Materials,SKU-1049,2026-05-10,,305,0,Delayed
+SHP-5077,Wipro Components,SKU-1165,2026-05-06,,445,0,In Transit
+SHP-5078,Hero Supply Corp.,SKU-1121,2026-05-10,2026-05-13,500,500,Received
+SHP-5079,Adani Industrial,SKU-1032,2026-05-12,2026-05-12,363,363,Received
+SHP-5080,Hero Supply Corp.,SKU-1037,2026-04-29,2026-04-29,440,440,Received
+SHP-5081,Mahindra Parts Ltd.,SKU-1164,2026-05-10,2026-05-11,407,407,Received
+SHP-5082,Bajaj Distributors,SKU-1293,2026-04-26,2026-04-29,152,152,Received
+SHP-5083,Wipro Components,SKU-1146,2026-05-06,,153,0,In Transit
+SHP-5084,Adani Industrial,SKU-1270,2026-05-07,2026-05-09,94,79,Received
+SHP-5085,Tata Supply Co.,SKU-1104,2026-05-12,2026-05-12,464,464,Received
+SHP-5086,Godrej Warehouse Supplies,SKU-1208,2026-04-25,,329,0,Delayed
+SHP-5087,Godrej Warehouse Supplies,SKU-1094,2026-04-23,2026-04-24,320,320,Received
+SHP-5088,L&T Raw Materials,SKU-1242,2026-04-27,2026-04-28,230,230,Received
+SHP-5089,Tata Supply Co.,SKU-1224,2026-04-30,2026-04-30,370,370,Received
+SHP-5090,L&T Raw Materials,SKU-1040,2026-05-09,2026-05-09,450,430,Received
+SHP-5091,Wipro Components,SKU-1118,2026-05-12,2026-05-12,357,324,Received
+SHP-5092,Bharti Supply Chain,SKU-1128,2026-05-01,2026-05-02,410,410,Received
+SHP-5093,Bharti Supply Chain,SKU-1038,2026-04-26,2026-04-28,344,344,Received
+SHP-5094,Adani Industrial,SKU-1029,2026-04-26,,407,0,Delayed
+SHP-5095,L&T Raw Materials,SKU-1241,2026-05-05,2026-05-07,384,384,Received
+SHP-5096,Adani Industrial,SKU-1133,2026-05-07,,221,0,Delayed
+SHP-5097,Reliance Logistics,SKU-1071,2026-05-07,,330,0,In Transit
+SHP-5098,Godrej Warehouse Supplies,SKU-1031,2026-05-06,2026-05-06,302,302,Received
+SHP-5099,Godrej Warehouse Supplies,SKU-1036,2026-04-30,,356,0,In Transit
+SHP-5100,Tata Supply Co.,SKU-1282,2026-04-28,2026-04-28,116,116,Received
+SHP-5101,Tata Supply Co.,SKU-1018,2026-04-28,2026-04-30,309,309,Received
+SHP-5102,Adani Industrial,SKU-1244,2026-05-04,,450,0,In Transit
+SHP-5103,Infosys Materials,SKU-1010,2026-05-12,,63,0,In Transit
+SHP-5104,Infosys Materials,SKU-1273,2026-04-24,2026-04-24,490,490,Received
+SHP-5105,HCL Packaging,SKU-1246,2026-05-12,,248,0,In Transit
+SHP-5106,Hero Supply Corp.,SKU-1064,2026-04-30,2026-05-01,409,409,Received
+SHP-5107,Tata Supply Co.,SKU-1224,2026-05-10,,365,0,Delayed
+SHP-5108,Godrej Warehouse Supplies,SKU-1180,2026-05-07,2026-05-07,225,225,Received
+SHP-5109,Infosys Materials,SKU-1118,2026-05-11,2026-05-14,351,351,Received
+SHP-5110,Hero Supply Corp.,SKU-1274,2026-04-25,,73,0,Delayed
+SHP-5111,Reliance Logistics,SKU-1127,2026-05-12,2026-05-15,89,89,Received
+SHP-5112,Mahindra Parts Ltd.,SKU-1144,2026-05-12,2026-05-13,210,210,Received
+SHP-5113,Bharti Supply Chain,SKU-1066,2026-04-24,2026-04-24,253,253,Received
+SHP-5114,Bajaj Distributors,SKU-1039,2026-05-11,,178,0,Delayed
+SHP-5115,Infosys Materials,SKU-1253,2026-05-02,2026-05-04,489,489,Received
+SHP-5116,Godrej Warehouse Supplies,SKU-1282,2026-05-04,2026-05-06,494,455,Received
+SHP-5117,Godrej Warehouse Supplies,SKU-1277,2026-04-27,2026-04-30,103,103,Received
+SHP-5118,Hero Supply Corp.,SKU-1248,2026-05-05,2026-05-06,90,90,Received
+SHP-5119,HCL Packaging,SKU-1118,2026-05-04,2026-05-04,429,377,Received
+SHP-5120,Hero Supply Corp.,SKU-1072,2026-05-12,2026-05-14,170,141,Received
+SHP-5121,Wipro Components,SKU-1058,2026-05-13,,305,0,In Transit
+SHP-5122,Bharti Supply Chain,SKU-1142,2026-04-25,2026-04-25,246,246,Received
+SHP-5123,Reliance Logistics,SKU-1142,2026-04-24,2026-04-27,246,246,Received
+SHP-5124,Adani Industrial,SKU-1227,2026-05-12,2026-05-13,164,164,Received
+SHP-5125,Bajaj Distributors,SKU-1220,2026-04-26,2026-04-26,76,63,Received
+SHP-5126,Godrej Warehouse Supplies,SKU-1013,2026-04-24,,436,0,Delayed
+SHP-5127,Bharti Supply Chain,SKU-1110,2026-05-13,,224,0,In Transit
+SHP-5128,L&T Raw Materials,SKU-1222,2026-04-30,,450,0,In Transit
+SHP-5129,Hero Supply Corp.,SKU-1029,2026-05-10,2026-05-12,333,333,Received
+SHP-5130,HCL Packaging,SKU-1237,2026-04-30,,343,0,In Transit
+SHP-5131,HCL Packaging,SKU-1133,2026-05-08,2026-05-09,245,245,Received
+SHP-5132,Mahindra Parts Ltd.,SKU-1007,2026-05-05,2026-05-06,459,444,Received
+SHP-5133,Infosys Materials,SKU-1277,2026-05-04,2026-05-04,222,178,Received
+SHP-5134,Bharti Supply Chain,SKU-1185,2026-05-05,2026-05-05,387,387,Received
+SHP-5135,Tata Supply Co.,SKU-1157,2026-04-25,2026-04-27,388,388,Received
+SHP-5136,Mahindra Parts Ltd.,SKU-1227,2026-04-29,2026-05-02,58,58,Received
+SHP-5137,Reliance Logistics,SKU-1183,2026-04-28,,376,0,In Transit
+SHP-5138,Infosys Materials,SKU-1209,2026-05-12,,346,0,Delayed
+SHP-5139,Bharti Supply Chain,SKU-1282,2026-05-03,2026-05-05,82,82,Received
+SHP-5140,Bharti Supply Chain,SKU-1132,2026-04-28,2026-04-29,115,115,Received
+SHP-5141,Mahindra Parts Ltd.,SKU-1025,2026-05-06,2026-05-06,108,87,Received
+SHP-5142,Wipro Components,SKU-1296,2026-05-03,2026-05-03,71,66,Received
+SHP-5143,Hero Supply Corp.,SKU-1132,2026-05-05,2026-05-06,58,49,Received
+SHP-5144,Hero Supply Corp.,SKU-1022,2026-04-24,2026-04-24,170,170,Received
+SHP-5145,HCL Packaging,SKU-1227,2026-05-10,2026-05-11,311,311,Received
+SHP-5146,Godrej Warehouse Supplies,SKU-1292,2026-05-02,,474,0,In Transit
+SHP-5147,Adani Industrial,SKU-1036,2026-04-23,,268,0,Delayed
+SHP-5148,Mahindra Parts Ltd.,SKU-1012,2026-05-03,,360,0,In Transit
+SHP-5149,Godrej Warehouse Supplies,SKU-1208,2026-04-23,2026-04-25,241,241,Received

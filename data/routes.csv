@@ -1,0 +1,13 @@
+route_id,route_name,distance_km,estimated_time_min,route_cost,route_type,congestion_level,best_vehicle,active
+RT-01,Mumbai Port Road,45,60,800,Urban,High,LCV,True
+RT-02,Pune Expressway,165,180,3200,Highway,Medium,HCV,True
+RT-03,Delhi NCR Circuit,85,120,1500,Urban,High,LCV,True
+RT-04,Bangalore Tech Corridor,55,75,950,Suburban,Medium,Mini Truck,True
+RT-05,Chennai Industrial Route,120,150,2400,Industrial,Low,HCV,True
+RT-06,Hyderabad Ring Road,70,90,1200,Suburban,Medium,LCV,True
+RT-07,Kolkata Dock Link,30,45,600,Industrial,High,HCV,True
+RT-08,Ahmedabad Highway,190,240,4200,Highway,Low,HCV,True
+RT-09,Jaipur Suburban,95,130,1800,Suburban,Low,LCV,True
+RT-10,Lucknow Urban,25,40,450,Urban,Medium,Mini Truck,True
+RT-11,Nagpur Bypass,140,170,2800,Highway,Low,HCV,False
+RT-12,Kochi Coastal,60,80,1100,Suburban,Medium,LCV,True

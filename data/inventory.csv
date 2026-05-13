@@ -1,0 +1,301 @@
+sku_id,product_name,category,warehouse_zone,current_stock,reorder_level,max_stock,unit_price,purchase_price,last_movement_date,avg_daily_sales,supplier_name,is_perishable,shelf_life_days,expiry_date,storage_cost_per_day,dead_stock_reason,competitor_price,return_policy,handling_cost_per_unit
+SKU-1000,Seal-Pro-125,Auto Parts,Z-D,94,95,557,4466.29,1941.83,2026-04-16,2.1,Tata Supply Co.,False,,,1.05,,,Partial Return,3.09
+SKU-1001,Transformer-Max-833,Packaging Materials,Z-D,249,242,1019,3806.1,1765.51,2026-04-16,17.3,Mahindra Parts Ltd.,False,,,1.04,,,Non-Returnable,0.69
+SKU-1002,Motor-Pro-467,Industrial Tools,Z-E,530,274,1752,4866.92,2683.69,2026-04-08,15.0,Bajaj Distributors,False,,,8.09,,,Non-Returnable,2.97
+SKU-1003,Clamp-Pro-146,Pharmaceuticals,Z-E,171,73,263,1425.97,932.97,2026-04-20,8.6,Godrej Warehouse Supplies,True,137.0,2026-06-30,9.68,,,Partial Return,0.54
+SKU-1004,Seal-Max-646,Pharmaceuticals,Z-C,787,216,1046,1137.1,602.34,2026-05-10,11.8,Reliance Logistics,True,191.0,2026-11-04,12.32,,,Partial Return,4.41
+SKU-1005,Gasket-Max-771,Chemicals,Z-G,820,548,1911,741.17,517.33,2026-04-09,13.5,L&T Raw Materials,True,249.0,2026-10-07,5.45,,,Returnable,2.65
+SKU-1006,Module-Pro-981,Apparel,Z-C,851,240,1385,364.46,201.42,2026-04-14,26.7,HCL Packaging,False,,,14.03,,,Returnable,3.47
+SKU-1007,Sensor-Ultra-649,Auto Parts,Z-F,278,63,328,4771.39,3580.17,2026-04-27,48.6,Mahindra Parts Ltd.,False,,,2.52,,4175.25,Partial Return,2.64
+SKU-1008,Valve-Max-482,FMCG,Z-A,185,263,1326,4399.67,3223.49,2026-04-24,12.4,Infosys Materials,True,320.0,2027-02-14,4.2,,,Returnable,4.89
+SKU-1009,Transformer-Max-231,Chemicals,Z-C,256,147,642,4648.12,3263.47,2026-03-30,10.5,Bharti Supply Chain,True,234.0,2026-07-20,13.79,,,Partial Return,2.37
+SKU-1010,Cable-Max-165,Industrial Tools,Z-A,311,303,1304,401.42,261.9,2026-04-29,3.8,Reliance Logistics,False,,,4.58,,,Returnable,2.67
+SKU-1011,Bracket-Ultra-597,Pharmaceuticals,Z-C,944,459,1581,1252.84,738.16,2026-04-17,9.9,Tata Supply Co.,True,250.0,2026-10-05,14.65,,,Partial Return,0.46
+SKU-1012,Seal-Ultra-200,Electronics,Z-G,574,319,1591,998.37,613.51,2026-05-05,21.4,Bharti Supply Chain,False,,,5.85,,,Returnable,2.33
+SKU-1013,Transformer-Pro-151,Electronics,Z-B,734,525,1997,2453.92,1191.38,2026-01-21,0.3,Reliance Logistics,False,,,1.98,Better Competitor Product,2645.22,Non-Returnable,1.57
+SKU-1014,Clamp-Ultra-902,Chemicals,Z-C,372,94,488,351.74,184.82,2026-05-10,29.4,HCL Packaging,True,301.0,2026-06-23,11.13,,,Returnable,0.53
+SKU-1015,Module-Ultra-982,Pharmaceuticals,Z-G,249,100,345,2992.87,1938.64,2026-04-17,33.0,L&T Raw Materials,True,297.0,2026-10-24,4.82,,,Partial Return,1.71
+SKU-1016,Bracket-Plus-234,Auto Parts,Z-H,221,216,747,2318.51,1853.37,2026-05-07,4.1,Infosys Materials,False,,,1.51,,,Returnable,4.68
+SKU-1017,Module-Max-478,Auto Parts,Z-C,283,274,997,3355.92,2086.85,2026-04-01,5.6,Mahindra Parts Ltd.,False,,,9.85,,,Returnable,3.76
+SKU-1018,Panel-Lite-388,Pharmaceuticals,Z-F,389,130,516,2468.23,1881.12,2026-05-10,5.1,Adani Industrial,True,171.0,2026-05-16,3.31,,,Partial Return,4.9
+SKU-1019,Board-Ultra-552,Packaging Materials,Z-A,92,53,329,2750.67,2018.55,2026-04-06,27.8,Adani Industrial,False,,,2.38,,,Non-Returnable,1.95
+SKU-1020,Connector-Lite-315,Pharmaceuticals,Z-B,429,220,824,4870.49,3408.33,2026-04-28,43.3,Mahindra Parts Ltd.,True,241.0,2026-05-19,1.89,,,Non-Returnable,4.05
+SKU-1021,Fitting-Max-373,FMCG,Z-B,361,247,883,1037.89,796.46,2026-04-21,15.6,Infosys Materials,True,144.0,2026-05-15,1.1,,,Non-Returnable,4.35
+SKU-1022,Bracket-Lite-756,Packaging Materials,Z-F,49,26,156,2923.92,2319.9,2026-05-11,5.9,Adani Industrial,False,,,2.04,,,Non-Returnable,2.29
+SKU-1023,Capacitor-Pro-494,Pharmaceuticals,Z-E,34,48,190,3449.94,2677.52,2026-04-01,10.3,Adani Industrial,True,65.0,2026-06-26,8.12,,,Partial Return,4.27
+SKU-1024,Fitting-Lite-619,Auto Parts,Z-G,227,161,768,999.61,665.71,2026-04-19,34.0,Mahindra Parts Ltd.,False,,,6.46,,,Non-Returnable,2.15
+SKU-1025,Widget-Lite-393,Pharmaceuticals,Z-G,882,405,1709,2236.84,1499.24,2026-04-11,23.9,Hero Supply Corp.,True,116.0,2026-08-01,6.06,,,Partial Return,3.17
+SKU-1026,Module-Max-788,Auto Parts,Z-D,125,314,1751,4920.48,3171.3,2026-05-09,23.0,Bajaj Distributors,False,,,1.94,,,Partial Return,3.54
+SKU-1027,Relay-Plus-349,FMCG,Z-A,725,506,1928,3903.18,1902.94,2026-03-30,26.1,Reliance Logistics,True,315.0,2027-01-21,3.37,,,Non-Returnable,3.4
+SKU-1028,Transformer-Standard-424,Chemicals,Z-G,678,515,1801,3731.09,2200.86,2026-04-27,37.7,Bajaj Distributors,True,171.0,2026-06-20,5.94,,,Returnable,1.52
+SKU-1029,Module-Ultra-392,Pharmaceuticals,Z-E,226,155,787,796.61,440.7,2026-05-04,35.5,Tata Supply Co.,True,242.0,2026-08-25,7.33,,,Returnable,1.19
+SKU-1030,Pump-Plus-888,Electronics,Z-G,562,162,1076,4274.57,3340.03,2026-04-17,27.1,Hero Supply Corp.,False,,,6.18,,,Partial Return,4.51
+SKU-1031,Relay-Max-379,Packaging Materials,Z-H,85,33,159,3634.7,2675.87,2026-05-05,49.0,HCL Packaging,False,,,0.55,,,Non-Returnable,3.04
+SKU-1032,Hose-Pro-185,Packaging Materials,Z-C,194,411,1875,1670.4,971.97,2026-04-22,38.2,Adani Industrial,False,,,9.95,,,Non-Returnable,1.41
+SKU-1033,Module-Plus-119,Electronics,Z-F,159,138,559,3783.45,2950.5,2026-05-01,42.0,L&T Raw Materials,False,,,1.46,,,Returnable,2.47
+SKU-1034,Sensor-Standard-323,Chemicals,Z-E,1329,342,1670,3752.23,1672.79,2026-05-03,48.3,Tata Supply Co.,True,326.0,2026-05-16,7.88,,,Non-Returnable,2.1
+SKU-1035,Clamp-Max-177,Pharmaceuticals,Z-B,1020,405,1527,4037.36,2900.81,2026-04-07,39.2,Godrej Warehouse Supplies,True,302.0,2026-09-03,0.6,,,Partial Return,1.84
+SKU-1036,Pump-Plus-208,Packaging Materials,Z-F,554,397,1401,2205.66,1529.67,2026-04-02,13.9,HCL Packaging,False,,,3.32,,,Non-Returnable,2.29
+SKU-1037,Fitting-Standard-374,Industrial Tools,Z-D,753,522,1801,1257.12,736.53,2025-12-25,0.7,Wipro Components,False,,,2.63,Bulk Only,1189.57,Non-Returnable,4.03
+SKU-1038,Gasket-Lite-710,Auto Parts,Z-A,208,338,1158,2468.46,1735.98,2026-03-30,24.1,Hero Supply Corp.,False,,,3.47,,,Returnable,0.65
+SKU-1039,Cable-Plus-808,Pharmaceuticals,Z-E,890,346,1459,1751.6,1398.92,2026-04-08,16.9,Hero Supply Corp.,True,262.0,2026-11-27,6.15,,,Partial Return,1.12
+SKU-1040,Sensor-Ultra-648,FMCG,Z-D,214,141,543,4903.53,3594.54,2026-02-04,0.4,Reliance Logistics,True,303.0,2026-05-04,1.19,Seasonal Product,4736.85,Partial Return,4.73
+SKU-1041,Seal-Plus-205,Electronics,Z-E,288,235,1061,1299.77,967.92,2026-05-06,41.2,Adani Industrial,False,,,7.46,,,Partial Return,3.22
+SKU-1042,Connector-Max-252,Auto Parts,Z-B,413,102,608,3000.83,1942.64,2026-04-10,19.3,Wipro Components,False,,,0.95,,,Partial Return,4.95
+SKU-1043,Filter-Standard-735,Electronics,Z-B,385,301,1662,827.43,388.5,2026-03-04,0.8,Hero Supply Corp.,False,,,1.39,Obsolete Model,670.05,Non-Returnable,3.59
+SKU-1044,Clamp-Plus-172,Pharmaceuticals,Z-E,1284,460,1713,4671.66,2663.11,2026-04-09,11.6,Mahindra Parts Ltd.,True,166.0,2026-10-08,5.3,,,Non-Returnable,3.06
+SKU-1045,Adapter-Lite-549,Apparel,Z-H,574,295,1510,2527.34,1510.13,2026-05-08,30.1,Adani Industrial,False,,,1.97,,,Partial Return,1.4
+SKU-1046,Module-Max-790,Electronics,Z-E,681,199,1280,2618.87,1510.8,2026-04-26,9.5,L&T Raw Materials,False,,,7.18,,,Non-Returnable,4.85
+SKU-1047,Relay-Lite-518,Industrial Tools,Z-F,1461,243,1472,3483.68,1795.1,2026-04-18,40.8,HCL Packaging,False,,,1.11,,2788.62,Returnable,4.86
+SKU-1048,Motor-Standard-944,Electronics,Z-H,660,149,946,3145.77,2214.61,2026-04-30,13.7,Mahindra Parts Ltd.,False,,,2.36,,,Non-Returnable,4.43
+SKU-1049,Relay-Pro-129,Pharmaceuticals,Z-C,219,171,736,1162.27,856.08,2026-05-06,23.3,Tata Supply Co.,True,361.0,2026-08-27,18.89,,,Non-Returnable,2.64
+SKU-1050,Bracket-Plus-954,Chemicals,Z-H,557,130,599,4613.25,2783.16,2026-05-05,43.3,Bharti Supply Chain,True,242.0,2026-06-23,1.52,,4082.04,Non-Returnable,4.22
+SKU-1051,Adapter-Ultra-601,FMCG,Z-H,824,267,1203,1917.19,1482.26,2026-05-01,49.0,Infosys Materials,True,322.0,2026-09-02,0.59,,,Partial Return,2.47
+SKU-1052,Motor-Plus-779,FMCG,Z-H,72,29,175,4355.02,3264.85,2026-04-15,5.4,Wipro Components,True,37.0,2026-06-13,2.24,,,Returnable,0.56
+SKU-1053,Bracket-Lite-738,Packaging Materials,Z-B,1460,367,1844,1931.05,1017.02,2026-03-29,44.4,Wipro Components,False,,,1.81,,,Returnable,3.16
+SKU-1054,Cable-Ultra-800,Auto Parts,Z-D,472,266,1629,2246.21,1522.03,2026-05-12,2.8,Reliance Logistics,False,,,1.23,,,Non-Returnable,2.27
+SKU-1055,Cable-Standard-521,FMCG,Z-C,198,74,458,2513.45,1591.67,2026-04-29,23.3,Bharti Supply Chain,True,265.0,2027-01-31,18.58,,,Non-Returnable,4.53
+SKU-1056,Hose-Standard-261,Apparel,Z-H,458,240,807,3467.05,2020.37,2026-04-24,10.4,Adani Industrial,False,,,2.21,,,Returnable,1.34
+SKU-1057,Adapter-Lite-688,Auto Parts,Z-E,78,42,144,90.08,67.2,2026-05-10,45.6,Hero Supply Corp.,False,,,7.48,,,Non-Returnable,3.92
+SKU-1058,Cable-Standard-921,Industrial Tools,Z-D,637,250,1403,3618.6,2401.57,2025-11-26,0.2,Bajaj Distributors,False,,,2.12,Better Competitor Product,3750.98,Returnable,2.98
+SKU-1059,Fitting-Max-192,Auto Parts,Z-F,749,346,1630,2720.07,2145.04,2026-01-05,0.5,Mahindra Parts Ltd.,False,,,1.77,Better Competitor Product,2965.46,Non-Returnable,3.78
+SKU-1060,Gasket-Pro-579,Apparel,Z-C,1226,484,1644,3388.31,1893.95,2026-04-08,18.6,Adani Industrial,False,,,8.1,,,Partial Return,0.79
+SKU-1061,Bearing-Ultra-866,Auto Parts,Z-G,1130,438,1784,1207.42,495.05,2026-04-08,16.7,L&T Raw Materials,False,,,4.89,,,Returnable,3.25
+SKU-1062,Switch-Ultra-409,Packaging Materials,Z-B,31,60,386,624.8,308.6,2026-04-09,7.2,Wipro Components,False,,,1.06,,,Partial Return,3.54
+SKU-1063,Transformer-Plus-701,FMCG,Z-G,655,237,1441,4698.31,2405.05,2026-03-30,18.8,Wipro Components,True,257.0,2026-06-21,5.45,,,Partial Return,1.96
+SKU-1064,Seal-Lite-162,Packaging Materials,Z-E,355,144,488,2300.85,1530.31,2026-04-02,32.2,Reliance Logistics,False,,,5.25,,,Non-Returnable,1.37
+SKU-1065,Panel-Standard-310,Apparel,Z-D,574,237,1300,3883.12,2778.21,2026-04-05,0.6,Mahindra Parts Ltd.,False,,,2.97,,,Partial Return,1.4
+SKU-1066,Board-Pro-776,Electronics,Z-C,102,26,130,1652.67,776.26,2026-05-10,6.8,Adani Industrial,False,,,11.68,,,Partial Return,0.51
+SKU-1067,Switch-Lite-625,Apparel,Z-H,882,207,1131,2631.18,1534.55,2026-05-12,3.5,Wipro Components,False,,,2.19,,,Non-Returnable,3.49
+SKU-1068,Relay-Ultra-554,Apparel,Z-B,70,183,759,3140.37,1991.45,2026-03-29,16.6,L&T Raw Materials,False,,,1.3,,,Non-Returnable,2.63
+SKU-1069,Pump-Pro-912,Apparel,Z-D,387,213,980,4145.73,2319.5,2025-12-10,0.9,Bajaj Distributors,False,,,1.14,High Price,4170.8,Non-Returnable,0.52
+SKU-1070,Module-Pro-542,Apparel,Z-F,287,298,1762,2830.33,1890.68,2026-04-17,18.0,Bajaj Distributors,False,,,3.82,,,Non-Returnable,4.37
+SKU-1071,Fitting-Pro-394,Auto Parts,Z-F,135,73,312,1160.01,514.22,2025-11-25,0.2,Bharti Supply Chain,False,,,2.72,No Marketing Push,1222.12,Partial Return,3.15
+SKU-1072,Seal-Standard-126,Auto Parts,Z-A,263,89,469,1787.57,844.74,2026-05-04,28.5,Adani Industrial,False,,,2.21,,,Partial Return,3.24
+SKU-1073,Widget-Pro-864,Pharmaceuticals,Z-G,894,209,959,3621.9,2574.21,2026-04-07,30.0,Reliance Logistics,True,109.0,2026-06-12,4.2,,3037.41,Non-Returnable,2.53
+SKU-1074,Switch-Plus-379,Pharmaceuticals,Z-B,520,172,806,2986.01,1823.78,2026-04-24,2.7,Adani Industrial,True,336.0,2026-05-15,0.95,,,Returnable,3.88
+SKU-1075,Bracket-Lite-435,Apparel,Z-A,1144,292,1118,2686.28,1321.77,2026-04-08,41.8,Godrej Warehouse Supplies,False,,,2.22,,2183.11,Returnable,2.41
+SKU-1076,Module-Lite-689,Packaging Materials,Z-G,797,382,1553,153.24,81.2,2026-04-04,23.3,Hero Supply Corp.,False,,,7.68,,,Returnable,2.3
+SKU-1077,Sensor-Max-546,Packaging Materials,Z-B,369,255,910,1698.69,793.72,2026-04-11,31.8,HCL Packaging,False,,,1.26,,,Non-Returnable,1.89
+SKU-1078,Seal-Max-341,Apparel,Z-C,448,112,624,423.0,330.16,2026-04-03,25.0,L&T Raw Materials,False,,,13.32,,,Non-Returnable,3.47
+SKU-1079,Adapter-Ultra-750,Industrial Tools,Z-F,250,88,409,1548.96,789.77,2026-05-10,17.9,Tata Supply Co.,False,,,1.93,,,Non-Returnable,0.38
+SKU-1080,Bearing-Lite-178,Apparel,Z-G,291,248,1047,2276.18,1647.79,2026-04-02,9.8,L&T Raw Materials,False,,,5.9,,,Returnable,4.8
+SKU-1081,Switch-Pro-930,Industrial Tools,Z-B,224,279,1133,4955.38,3020.94,2026-04-04,8.4,Godrej Warehouse Supplies,False,,,1.88,,,Non-Returnable,2.16
+SKU-1082,Gasket-Ultra-712,Electronics,Z-F,145,46,234,1456.53,1004.27,2026-04-01,48.2,L&T Raw Materials,False,,,3.62,,,Non-Returnable,0.59
+SKU-1083,Hose-Max-458,Auto Parts,Z-G,167,87,364,2816.66,1851.66,2026-04-22,40.8,Bajaj Distributors,False,,,6.81,,,Partial Return,4.99
+SKU-1084,Capacitor-Pro-761,Packaging Materials,Z-F,129,28,137,1741.58,1230.36,2026-05-01,11.7,Mahindra Parts Ltd.,False,,,1.46,,1580.7,Partial Return,3.9
+SKU-1085,Fitting-Standard-138,Industrial Tools,Z-C,1443,273,1323,4054.77,1890.4,2026-04-15,2.7,Godrej Warehouse Supplies,False,,,12.73,,3401.3,Non-Returnable,3.81
+SKU-1086,Switch-Max-646,Pharmaceuticals,Z-E,669,470,1756,1870.81,1457.08,2026-04-15,23.4,Bharti Supply Chain,True,225.0,2026-09-08,9.83,,,Returnable,4.05
+SKU-1087,Panel-Lite-153,Chemicals,Z-F,887,358,1235,4263.27,2191.43,2026-05-03,14.0,HCL Packaging,True,105.0,2026-08-15,3.84,,,Returnable,4.12
+SKU-1088,Bearing-Pro-524,Electronics,Z-G,316,232,1128,1905.82,783.82,2026-05-07,42.0,Bajaj Distributors,False,,,5.34,,,Returnable,0.86
+SKU-1089,Filter-Plus-812,FMCG,Z-H,266,246,1018,1316.82,966.53,2026-04-08,47.0,L&T Raw Materials,True,300.0,2026-10-13,0.98,,,Returnable,0.43
+SKU-1090,Pump-Ultra-912,Chemicals,Z-B,228,90,327,131.35,79.62,2026-04-28,36.1,Bharti Supply Chain,True,249.0,2026-05-16,0.86,,,Non-Returnable,1.1
+SKU-1091,Hose-Pro-636,Industrial Tools,Z-B,792,272,1177,2793.05,1553.44,2026-04-13,2.7,Adani Industrial,False,,,1.97,,,Non-Returnable,3.79
+SKU-1092,Bearing-Pro-453,Pharmaceuticals,Z-B,535,398,1680,269.46,166.64,2026-04-02,9.2,Bajaj Distributors,True,267.0,2026-10-05,1.45,,,Returnable,0.5
+SKU-1093,Switch-Pro-400,Pharmaceuticals,Z-A,158,309,1720,2601.15,2069.6,2026-04-09,23.9,Reliance Logistics,True,361.0,2026-11-08,4.59,,,Returnable,4.36
+SKU-1094,Gasket-Lite-227,Industrial Tools,Z-G,1195,403,1921,1728.23,820.44,2026-03-30,25.1,HCL Packaging,False,,,5.07,,,Returnable,3.69
+SKU-1095,Module-Plus-716,FMCG,Z-E,277,125,757,1567.15,1004.62,2026-04-16,8.7,Wipro Components,True,209.0,2026-09-09,8.07,,,Non-Returnable,1.52
+SKU-1096,Connector-Pro-787,Packaging Materials,Z-F,342,310,1150,756.76,486.62,2026-04-15,2.2,Tata Supply Co.,False,,,1.71,,,Partial Return,1.96
+SKU-1097,Motor-Standard-133,FMCG,Z-H,470,176,859,731.59,400.02,2026-04-23,32.7,Infosys Materials,True,88.0,2026-05-15,1.5,,,Non-Returnable,4.59
+SKU-1098,Sensor-Lite-893,Auto Parts,Z-H,413,161,539,1040.88,472.86,2026-05-09,22.9,Hero Supply Corp.,False,,,1.39,,,Returnable,4.09
+SKU-1099,Gasket-Ultra-455,Apparel,Z-E,1999,375,1925,4640.26,3039.74,2026-04-20,25.7,Tata Supply Co.,False,,,9.93,,4041.76,Non-Returnable,0.33
+SKU-1100,Transformer-Standard-477,Chemicals,Z-C,203,382,1353,4998.0,3436.36,2026-04-10,20.8,Adani Industrial,True,324.0,2026-05-16,16.25,,,Non-Returnable,2.44
+SKU-1101,Capacitor-Lite-231,FMCG,Z-C,350,222,986,2614.61,1363.91,2026-05-03,16.5,Hero Supply Corp.,True,145.0,2026-07-31,18.54,,,Returnable,1.4
+SKU-1102,Seal-Standard-381,FMCG,Z-E,485,312,1358,2979.45,1883.78,2026-05-03,33.1,Hero Supply Corp.,True,339.0,2026-07-03,5.21,,,Returnable,0.59
+SKU-1103,Seal-Standard-371,Pharmaceuticals,Z-G,978,335,1365,2750.61,1806.5,2026-04-24,24.4,Bajaj Distributors,True,237.0,2026-12-18,6.75,,,Returnable,2.31
+SKU-1104,Relay-Plus-308,Industrial Tools,Z-C,383,206,740,4878.1,2206.4,2026-04-20,26.0,Tata Supply Co.,False,,,10.23,,,Non-Returnable,0.79
+SKU-1105,Switch-Max-244,Apparel,Z-A,417,202,694,1278.94,954.25,2026-05-03,40.8,L&T Raw Materials,False,,,4.16,,,Returnable,3.86
+SKU-1106,Relay-Standard-578,Chemicals,Z-E,689,171,1118,2313.29,1148.07,2026-04-06,18.0,Reliance Logistics,True,174.0,2026-07-06,6.43,,,Returnable,4.27
+SKU-1107,Pump-Max-370,Industrial Tools,Z-G,49,133,849,1844.49,950.73,2026-04-19,25.5,HCL Packaging,False,,,5.12,,,Partial Return,3.47
+SKU-1108,Sensor-Max-199,Packaging Materials,Z-F,889,514,1727,3787.08,1816.37,2026-04-11,20.4,Reliance Logistics,False,,,1.14,,,Returnable,3.63
+SKU-1109,Relay-Standard-567,FMCG,Z-C,425,223,771,4953.55,3446.32,2026-04-24,29.9,HCL Packaging,True,290.0,2026-09-27,14.72,,,Returnable,1.97
+SKU-1110,Hose-Pro-526,Auto Parts,Z-A,885,292,1322,2909.29,2003.22,2026-04-06,24.3,HCL Packaging,False,,,3.89,,,Partial Return,3.92
+SKU-1111,Motor-Max-941,Pharmaceuticals,Z-A,9,371,1272,2233.14,1267.33,2026-04-17,34.7,Adani Industrial,True,286.0,2026-06-27,4.62,,,Partial Return,3.69
+SKU-1112,Clamp-Max-631,Pharmaceuticals,Z-F,500,322,1456,2325.33,1426.01,2026-04-09,18.0,Hero Supply Corp.,True,359.0,2026-12-23,2.83,,,Returnable,4.8
+SKU-1113,Bracket-Standard-405,Pharmaceuticals,Z-E,825,324,1679,1619.35,873.67,2025-11-14,1.4,Bharti Supply Chain,True,92.0,2026-04-06,8.38,Poor Quality Feedback,1730.64,Non-Returnable,4.13
+SKU-1114,Panel-Lite-143,Auto Parts,Z-B,616,233,809,2421.44,1164.29,2026-04-09,13.9,HCL Packaging,False,,,1.54,,,Returnable,0.72
+SKU-1115,Fitting-Standard-345,Pharmaceuticals,Z-A,540,420,1471,309.83,175.15,2025-12-12,1.4,Mahindra Parts Ltd.,True,32.0,2026-04-07,4.93,Seasonal Product,285.69,Non-Returnable,2.49
+SKU-1116,Valve-Lite-428,Auto Parts,Z-A,995,519,1959,2699.0,1860.28,2026-05-11,45.7,Mahindra Parts Ltd.,False,,,3.25,,,Returnable,4.68
+SKU-1117,Connector-Plus-906,Chemicals,Z-C,519,480,1633,95.87,60.13,2026-05-07,46.5,Godrej Warehouse Supplies,True,175.0,2026-06-18,15.17,,,Returnable,4.29
+SKU-1118,Switch-Lite-297,Apparel,Z-F,296,112,432,971.69,674.98,2026-04-25,28.6,Infosys Materials,False,,,1.53,,,Partial Return,4.51
+SKU-1119,Pump-Standard-435,Apparel,Z-G,730,241,1470,1651.83,824.62,2026-04-27,19.5,Wipro Components,False,,,7.02,,,Non-Returnable,1.65
+SKU-1120,Fitting-Standard-111,Auto Parts,Z-F,758,281,1518,1568.69,881.87,2026-04-11,46.2,Hero Supply Corp.,False,,,3.31,,,Partial Return,0.76
+SKU-1121,Filter-Lite-729,Pharmaceuticals,Z-D,238,82,373,1899.44,1293.09,2026-04-13,38.0,Bajaj Distributors,True,141.0,2026-07-06,2.39,,,Returnable,2.72
+SKU-1122,Capacitor-Ultra-470,Apparel,Z-B,87,61,226,2884.87,1326.87,2026-04-23,42.8,Wipro Components,False,,,0.67,,,Returnable,3.64
+SKU-1123,Relay-Pro-622,Chemicals,Z-A,752,174,1028,335.8,196.43,2026-04-24,36.3,Adani Industrial,True,160.0,2026-08-26,3.73,,,Returnable,2.23
+SKU-1124,Clamp-Pro-654,Electronics,Z-B,303,164,1066,3840.85,3039.39,2026-04-02,48.2,Godrej Warehouse Supplies,False,,,1.99,,,Non-Returnable,2.35
+SKU-1125,Motor-Plus-182,FMCG,Z-F,196,60,342,680.37,538.51,2026-05-13,37.9,Bharti Supply Chain,True,267.0,2026-09-18,2.27,,,Non-Returnable,4.15
+SKU-1126,Cable-Plus-454,FMCG,Z-E,170,141,486,209.48,139.11,2026-04-04,38.4,Reliance Logistics,True,153.0,2026-10-01,7.97,,,Non-Returnable,3.07
+SKU-1127,Clamp-Pro-350,Electronics,Z-G,213,184,998,743.67,593.0,2026-02-12,1.5,Godrej Warehouse Supplies,False,,,6.31,Poor Quality Feedback,647.79,Returnable,4.93
+SKU-1128,Capacitor-Max-523,Auto Parts,Z-E,147,52,224,4562.31,2967.31,2026-04-16,28.0,Reliance Logistics,False,,,9.86,,,Partial Return,3.42
+SKU-1129,Capacitor-Lite-813,Packaging Materials,Z-G,412,78,405,2393.92,1770.87,2026-04-24,42.9,Mahindra Parts Ltd.,False,,,7.22,,2319.03,Non-Returnable,2.87
+SKU-1130,Panel-Plus-348,Auto Parts,Z-D,381,191,776,507.7,350.23,2026-05-01,3.1,Adani Industrial,False,,,2.18,,,Partial Return,0.39
+SKU-1131,Module-Max-923,Pharmaceuticals,Z-H,155,147,527,1098.45,522.87,2026-05-06,37.5,Wipro Components,True,154.0,2026-07-16,0.91,,,Returnable,2.85
+SKU-1132,Filter-Plus-577,Industrial Tools,Z-E,368,129,635,538.11,426.47,2026-04-13,38.2,Godrej Warehouse Supplies,False,,,9.57,,,Non-Returnable,1.7
+SKU-1133,Connector-Standard-984,Pharmaceuticals,Z-C,100,25,133,3614.06,1872.36,2026-05-01,16.8,Adani Industrial,True,321.0,2026-07-18,15.4,,,Partial Return,1.82
+SKU-1134,Relay-Ultra-757,Chemicals,Z-H,151,115,444,3615.55,2152.43,2026-04-09,49.5,Reliance Logistics,True,298.0,2026-05-20,0.65,,,Partial Return,0.43
+SKU-1135,Widget-Plus-240,Pharmaceuticals,Z-B,501,267,1548,1897.34,1227.83,2025-12-18,1.8,Bajaj Distributors,True,279.0,2026-05-11,0.51,Obsolete Model,1752.01,Returnable,2.74
+SKU-1136,Bracket-Standard-393,Electronics,Z-G,1537,509,1751,2645.71,1313.3,2026-04-04,26.6,Godrej Warehouse Supplies,False,,,5.07,,2181.68,Non-Returnable,2.4
+SKU-1137,Cable-Ultra-331,Auto Parts,Z-B,462,429,1438,512.83,282.93,2026-04-08,24.1,Bajaj Distributors,False,,,0.51,,,Returnable,0.6
+SKU-1138,Pump-Ultra-903,Industrial Tools,Z-B,108,442,1932,4511.3,3053.77,2026-04-07,24.0,Reliance Logistics,False,,,1.89,,,Partial Return,4.64
+SKU-1139,Transformer-Standard-773,Electronics,Z-C,658,362,1841,3773.66,2585.28,2026-04-18,46.5,Bharti Supply Chain,False,,,9.14,,,Returnable,2.92
+SKU-1140,Motor-Ultra-653,Industrial Tools,Z-G,1135,429,1647,3634.61,2181.92,2026-04-21,3.2,Adani Industrial,False,,,4.93,,,Returnable,1.83
+SKU-1141,Coupler-Standard-506,Industrial Tools,Z-A,770,267,1398,1179.29,732.59,2026-04-19,21.9,Bajaj Distributors,False,,,3.76,,,Non-Returnable,0.61
+SKU-1142,Coupler-Lite-917,Pharmaceuticals,Z-B,213,50,268,813.67,452.28,2026-04-20,5.8,Reliance Logistics,True,187.0,2026-09-08,0.65,,,Returnable,1.1
+SKU-1143,Switch-Standard-668,Packaging Materials,Z-B,102,25,153,3010.32,1594.78,2026-04-19,1.1,Adani Industrial,False,,,1.08,,,Returnable,3.68
+SKU-1144,Transformer-Max-685,FMCG,Z-G,329,76,447,772.38,360.61,2026-04-26,21.3,Wipro Components,True,69.0,2026-07-06,6.88,,,Non-Returnable,3.05
+SKU-1145,Valve-Plus-209,FMCG,Z-E,73,33,113,1930.46,1437.96,2026-04-15,17.1,Bajaj Distributors,True,334.0,2026-05-16,8.02,,,Partial Return,1.16
+SKU-1146,Gasket-Max-507,Industrial Tools,Z-E,998,408,1605,3920.77,2079.4,2026-04-26,40.9,Adani Industrial,False,,,6.83,,,Partial Return,1.16
+SKU-1147,Transformer-Max-798,Electronics,Z-H,1133,281,1550,3479.53,2531.66,2026-04-17,33.8,Mahindra Parts Ltd.,False,,,1.77,,,Returnable,1.41
+SKU-1148,Panel-Ultra-533,Packaging Materials,Z-B,510,304,1019,2695.12,2073.62,2026-03-30,21.2,Reliance Logistics,False,,,1.69,,,Non-Returnable,3.57
+SKU-1149,Transformer-Standard-753,Apparel,Z-B,654,313,1674,3252.65,1358.69,2026-04-02,34.0,Adani Industrial,False,,,1.95,,,Non-Returnable,4.84
+SKU-1150,Pump-Pro-110,Apparel,Z-E,423,125,554,3453.94,1686.95,2026-04-20,19.9,Bajaj Distributors,False,,,7.94,,,Partial Return,0.92
+SKU-1151,Widget-Plus-207,Auto Parts,Z-G,145,584,1985,1774.23,953.16,2026-04-30,26.3,Godrej Warehouse Supplies,False,,,5.9,,,Non-Returnable,3.67
+SKU-1152,Switch-Lite-168,Auto Parts,Z-A,175,451,1759,3257.45,2185.28,2026-05-03,46.5,Hero Supply Corp.,False,,,2.73,,,Returnable,2.85
+SKU-1153,Gasket-Standard-536,Chemicals,Z-D,1800,365,1733,3303.67,1844.22,2026-04-04,44.2,Wipro Components,True,333.0,2027-04-09,2.26,,2974.84,Returnable,2.97
+SKU-1154,Transformer-Max-474,Industrial Tools,Z-D,675,173,1037,2662.19,1745.45,2026-04-05,19.7,Adani Industrial,False,,,1.97,,,Non-Returnable,1.89
+SKU-1155,Switch-Standard-276,Auto Parts,Z-B,78,251,1476,628.9,345.47,2026-05-04,25.8,Adani Industrial,False,,,1.39,,,Partial Return,2.04
+SKU-1156,Board-Plus-750,FMCG,Z-C,1166,213,1102,3116.08,2325.25,2026-05-13,24.5,Infosys Materials,True,226.0,2026-08-18,16.34,,2643.51,Partial Return,4.23
+SKU-1157,Relay-Max-184,Electronics,Z-D,182,108,698,882.63,514.51,2025-12-08,1.0,HCL Packaging,False,,,0.78,Low Reliability,777.04,Partial Return,4.15
+SKU-1158,Bearing-Standard-942,Electronics,Z-H,892,222,1218,3769.16,1956.51,2026-05-11,22.8,Godrej Warehouse Supplies,False,,,2.22,,,Returnable,2.31
+SKU-1159,Sensor-Max-314,Industrial Tools,Z-G,315,106,439,1074.37,455.26,2026-04-21,26.8,L&T Raw Materials,False,,,6.16,,,Non-Returnable,4.9
+SKU-1160,Filter-Lite-686,Auto Parts,Z-B,126,110,377,4962.81,3706.32,2026-05-05,35.2,Mahindra Parts Ltd.,False,,,0.87,,,Partial Return,1.75
+SKU-1161,Cable-Ultra-502,Chemicals,Z-C,698,313,1282,2287.36,1494.68,2026-05-08,20.4,Hero Supply Corp.,True,172.0,2026-07-30,14.53,,,Non-Returnable,1.77
+SKU-1162,Widget-Ultra-195,Chemicals,Z-F,740,293,1841,4842.24,3534.54,2026-04-12,13.8,Bharti Supply Chain,True,202.0,2026-10-29,2.7,,,Non-Returnable,3.98
+SKU-1163,Hose-Pro-147,Apparel,Z-H,79,22,133,2309.76,1840.27,2026-04-16,10.5,Hero Supply Corp.,False,,,2.32,,,Partial Return,1.65
+SKU-1164,Bracket-Pro-770,Industrial Tools,Z-E,98,55,268,306.35,199.2,2026-03-30,37.9,Adani Industrial,False,,,8.28,,,Partial Return,0.66
+SKU-1165,Valve-Plus-179,FMCG,Z-D,175,293,1163,4094.69,3256.35,2026-04-16,34.9,Wipro Components,True,66.0,2026-07-13,2.33,,,Returnable,0.7
+SKU-1166,Bearing-Lite-240,Packaging Materials,Z-C,1472,422,1413,2838.29,1828.22,2026-05-03,22.3,Hero Supply Corp.,False,,,9.49,,3053.91,Partial Return,3.5
+SKU-1167,Valve-Pro-202,FMCG,Z-B,779,339,1307,1606.79,732.59,2026-04-26,32.4,Infosys Materials,True,313.0,2026-10-28,1.67,,,Partial Return,0.33
+SKU-1168,Hose-Lite-310,Pharmaceuticals,Z-G,297,174,705,2499.69,1112.61,2026-04-12,32.1,Tata Supply Co.,True,300.0,2027-03-03,7.95,,,Non-Returnable,0.83
+SKU-1169,Adapter-Plus-474,FMCG,Z-H,298,269,1677,1347.82,560.6,2026-05-10,47.5,Adani Industrial,True,289.0,2026-06-15,2.03,,,Non-Returnable,3.57
+SKU-1170,Module-Ultra-649,FMCG,Z-E,106,53,271,4872.85,2251.99,2026-04-23,19.8,Bajaj Distributors,True,362.0,2027-04-07,6.55,,,Non-Returnable,3.7
+SKU-1171,Cable-Pro-350,Apparel,Z-G,153,73,337,3347.09,2219.86,2026-05-02,6.4,Hero Supply Corp.,False,,,4.55,,,Returnable,0.99
+SKU-1172,Bearing-Standard-629,Auto Parts,Z-C,421,145,861,3678.03,1644.9,2026-05-12,17.1,Adani Industrial,False,,,9.9,,,Returnable,1.46
+SKU-1173,Adapter-Ultra-178,Chemicals,Z-H,814,233,1146,876.06,405.55,2026-05-07,44.8,Bajaj Distributors,True,89.0,2026-07-09,0.51,,,Returnable,1.37
+SKU-1174,Relay-Lite-492,FMCG,Z-C,1147,288,1856,1161.35,579.87,2026-04-23,13.9,Tata Supply Co.,True,322.0,2026-07-17,16.52,,,Returnable,1.06
+SKU-1175,Capacitor-Pro-510,Apparel,Z-H,1031,360,1873,477.61,278.3,2026-04-20,10.4,L&T Raw Materials,False,,,2.07,,,Partial Return,3.19
+SKU-1176,Switch-Lite-705,Chemicals,Z-D,708,456,1600,795.3,614.73,2026-05-12,12.0,Godrej Warehouse Supplies,True,355.0,2027-04-29,2.88,,,Returnable,3.84
+SKU-1177,Motor-Ultra-844,Auto Parts,Z-B,245,119,520,4807.87,3793.52,2026-02-23,0.2,Infosys Materials,False,,,1.85,No Marketing Push,4442.07,Non-Returnable,2.4
+SKU-1178,Fitting-Pro-694,Apparel,Z-C,290,383,1405,358.3,238.26,2026-05-05,12.2,Bharti Supply Chain,False,,,13.96,,,Non-Returnable,3.56
+SKU-1179,Fitting-Lite-425,Chemicals,Z-E,243,93,578,589.42,260.68,2026-01-15,0.8,HCL Packaging,True,213.0,2026-03-24,6.04,Poor Quality Feedback,553.47,Returnable,0.63
+SKU-1180,Hose-Lite-946,Electronics,Z-D,1903,504,1811,1278.68,693.42,2026-04-11,2.9,Bharti Supply Chain,False,,,1.15,,1034.87,Non-Returnable,4.3
+SKU-1181,Transformer-Ultra-663,Pharmaceuticals,Z-B,297,172,1046,109.19,79.94,2026-04-29,7.0,Adani Industrial,True,220.0,2026-07-07,0.63,,,Partial Return,1.44
+SKU-1182,Module-Pro-166,Pharmaceuticals,Z-H,977,297,1757,656.51,510.05,2026-05-10,8.8,L&T Raw Materials,True,251.0,2026-10-10,1.49,,,Non-Returnable,3.48
+SKU-1183,Board-Lite-319,FMCG,Z-E,729,145,673,3114.92,1552.21,2026-04-25,25.2,HCL Packaging,True,275.0,2026-05-16,6.92,,2736.55,Partial Return,1.4
+SKU-1184,Transformer-Pro-491,Industrial Tools,Z-H,904,324,1215,2536.85,1408.85,2026-05-02,1.8,L&T Raw Materials,False,,,0.94,,,Non-Returnable,0.48
+SKU-1185,Relay-Standard-466,Pharmaceuticals,Z-C,126,57,305,4090.61,3137.1,2026-03-06,1.9,L&T Raw Materials,True,228.0,2026-04-20,18.92,Seasonal Product,3488.6,Partial Return,1.73
+SKU-1186,Fitting-Ultra-467,Electronics,Z-F,488,295,1262,4191.65,3035.43,2026-04-12,27.3,Mahindra Parts Ltd.,False,,,2.47,,,Returnable,0.47
+SKU-1187,Coupler-Max-120,Chemicals,Z-A,258,224,779,1736.76,817.99,2025-12-01,0.6,Reliance Logistics,True,105.0,2026-04-05,4.11,Seasonal Product,1792.87,Partial Return,4.33
+SKU-1188,Module-Lite-821,Packaging Materials,Z-B,710,154,789,3675.14,2112.28,2026-04-03,48.1,Bajaj Distributors,False,,,0.98,,3559.72,Partial Return,3.98
+SKU-1189,Cable-Ultra-703,FMCG,Z-G,280,189,728,3657.71,2851.24,2026-04-07,19.9,L&T Raw Materials,True,46.0,2026-06-18,7.68,,,Partial Return,1.26
+SKU-1190,Adapter-Pro-608,FMCG,Z-F,917,262,1626,881.04,664.42,2026-05-08,41.2,Bajaj Distributors,True,357.0,2026-11-15,2.34,,,Non-Returnable,1.21
+SKU-1191,Clamp-Pro-458,Auto Parts,Z-B,1096,236,1575,4847.05,3653.81,2026-04-12,44.1,Godrej Warehouse Supplies,False,,,1.32,,,Returnable,4.18
+SKU-1192,Adapter-Ultra-876,Pharmaceuticals,Z-C,466,164,1024,149.39,75.36,2026-05-07,4.2,Mahindra Parts Ltd.,True,222.0,2026-12-02,15.38,,,Returnable,1.82
+SKU-1193,Coupler-Plus-821,Electronics,Z-G,412,251,1438,315.1,167.77,2026-05-01,20.8,HCL Packaging,False,,,6.89,,,Partial Return,2.79
+SKU-1194,Hose-Lite-404,Pharmaceuticals,Z-B,104,41,201,810.27,441.06,2026-04-16,4.8,Bajaj Distributors,True,350.0,2027-01-16,0.65,,,Returnable,1.02
+SKU-1195,Filter-Pro-584,Apparel,Z-E,1034,357,1707,1361.77,894.34,2026-04-19,9.7,Adani Industrial,False,,,6.85,,,Non-Returnable,0.41
+SKU-1196,Switch-Plus-369,Pharmaceuticals,Z-E,883,199,1255,528.68,352.77,2026-04-09,21.0,L&T Raw Materials,True,146.0,2026-06-21,6.94,,,Partial Return,2.21
+SKU-1197,Transformer-Ultra-987,Chemicals,Z-D,245,209,1075,2535.4,1927.37,2026-04-07,34.0,L&T Raw Materials,True,105.0,2026-05-20,1.62,,,Returnable,4.87
+SKU-1198,Valve-Max-143,Packaging Materials,Z-B,965,322,1499,782.0,498.93,2026-04-23,45.6,Tata Supply Co.,False,,,0.63,,,Partial Return,2.11
+SKU-1199,Gasket-Lite-632,Chemicals,Z-A,1237,436,1710,2126.99,1203.4,2026-05-04,28.5,L&T Raw Materials,True,81.0,2026-06-27,4.34,,,Non-Returnable,4.36
+SKU-1200,Bearing-Plus-370,Packaging Materials,Z-H,141,306,1271,2044.72,1323.54,2026-03-31,34.8,Reliance Logistics,False,,,1.29,,,Non-Returnable,3.51
+SKU-1201,Connector-Ultra-586,Auto Parts,Z-F,68,28,141,1437.72,857.81,2026-03-30,34.4,Infosys Materials,False,,,1.4,,,Partial Return,2.33
+SKU-1202,Gasket-Lite-846,Packaging Materials,Z-B,313,104,484,3717.68,2616.49,2026-04-20,41.1,HCL Packaging,False,,,1.69,,,Returnable,1.69
+SKU-1203,Capacitor-Plus-238,Electronics,Z-C,146,138,494,1284.98,748.6,2025-11-16,0.4,Godrej Warehouse Supplies,False,,,13.76,No Marketing Push,1272.93,Returnable,3.47
+SKU-1204,Cable-Lite-600,Chemicals,Z-C,1122,416,1882,859.39,651.24,2026-03-30,5.0,Reliance Logistics,True,227.0,2026-05-20,15.61,,,Returnable,4.31
+SKU-1205,Seal-Max-793,Pharmaceuticals,Z-E,4,303,1434,2396.78,1085.56,2026-05-02,30.3,Reliance Logistics,True,144.0,2026-06-23,9.72,,,Partial Return,4.84
+SKU-1206,Seal-Lite-533,Packaging Materials,Z-F,729,195,1040,4130.34,2308.29,2026-05-07,0.9,Bajaj Distributors,False,,,3.9,,,Non-Returnable,2.89
+SKU-1207,Coupler-Standard-389,Auto Parts,Z-B,829,173,1086,1659.43,847.56,2026-04-02,35.7,Bajaj Distributors,False,,,0.95,,,Returnable,2.68
+SKU-1208,Cable-Pro-924,Packaging Materials,Z-F,254,255,1494,4987.47,2512.54,2026-04-17,20.5,Hero Supply Corp.,False,,,1.11,,,Partial Return,4.97
+SKU-1209,Valve-Lite-843,Pharmaceuticals,Z-H,877,569,1956,4234.83,3117.92,2026-04-08,9.5,Tata Supply Co.,True,271.0,2026-05-16,1.95,,,Partial Return,3.86
+SKU-1210,Board-Ultra-443,Apparel,Z-D,367,151,827,3951.05,2104.04,2026-04-27,29.5,Wipro Components,False,,,2.63,,,Non-Returnable,0.46
+SKU-1211,Seal-Standard-694,Apparel,Z-H,195,344,1921,2672.7,1510.72,2026-05-04,7.3,Infosys Materials,False,,,1.19,,,Partial Return,4.49
+SKU-1212,Switch-Max-423,FMCG,Z-B,540,219,1098,3190.77,1282.32,2026-04-26,10.9,Mahindra Parts Ltd.,True,325.0,2026-07-27,1.68,,,Returnable,0.82
+SKU-1213,Pump-Ultra-539,Packaging Materials,Z-G,51,223,1077,3666.76,2860.17,2026-04-23,38.0,HCL Packaging,False,,,4.76,,,Partial Return,0.22
+SKU-1214,Fitting-Max-331,Industrial Tools,Z-E,139,60,364,876.75,639.62,2026-04-24,47.4,Wipro Components,False,,,8.64,,,Partial Return,2.72
+SKU-1215,Pump-Ultra-237,Industrial Tools,Z-H,916,219,835,2046.79,1005.73,2026-05-05,11.0,Reliance Logistics,False,,,1.68,,1685.16,Partial Return,4.0
+SKU-1216,Motor-Ultra-361,Electronics,Z-A,291,241,1455,3464.26,1963.23,2026-04-19,6.6,Bharti Supply Chain,False,,,3.42,,,Returnable,1.19
+SKU-1217,Hose-Ultra-109,Auto Parts,Z-G,878,240,1455,3047.89,1386.38,2026-05-07,25.8,L&T Raw Materials,False,,,4.47,,,Returnable,3.97
+SKU-1218,Relay-Max-723,Pharmaceuticals,Z-E,772,411,1802,2078.29,964.64,2026-01-02,0.4,Wipro Components,True,199.0,2026-04-27,5.01,Obsolete Model,1718.12,Returnable,4.21
+SKU-1219,Hose-Plus-252,Apparel,Z-B,1068,408,1581,1194.24,949.98,2026-04-25,13.6,Reliance Logistics,False,,,0.65,,,Returnable,4.4
+SKU-1220,Filter-Lite-920,Industrial Tools,Z-G,1181,269,1612,277.15,205.31,2026-04-01,32.5,Godrej Warehouse Supplies,False,,,5.43,,,Non-Returnable,4.78
+SKU-1221,Bracket-Ultra-195,Industrial Tools,Z-F,313,79,474,1395.57,773.55,2026-04-13,40.1,Bajaj Distributors,False,,,3.66,,,Returnable,0.74
+SKU-1222,Clamp-Ultra-160,FMCG,Z-B,564,272,952,3408.05,1610.32,2026-04-19,39.1,L&T Raw Materials,True,44.0,2026-06-12,1.76,,,Returnable,2.52
+SKU-1223,Relay-Pro-521,Chemicals,Z-A,178,43,229,3849.27,2427.58,2026-04-07,11.6,Bajaj Distributors,True,203.0,2026-06-27,2.29,,,Partial Return,3.69
+SKU-1224,Relay-Lite-779,Packaging Materials,Z-C,1126,498,1818,320.1,210.42,2026-05-03,25.5,Wipro Components,False,,,13.96,,,Returnable,0.56
+SKU-1225,Relay-Lite-346,Industrial Tools,Z-E,94,45,203,2046.22,1010.83,2026-04-14,22.5,L&T Raw Materials,False,,,7.24,,,Non-Returnable,2.35
+SKU-1226,Sensor-Plus-863,Electronics,Z-B,197,196,926,4138.25,2965.94,2026-04-04,32.1,HCL Packaging,False,,,1.34,,,Partial Return,3.42
+SKU-1227,Gasket-Lite-945,Electronics,Z-D,1368,399,1829,3597.46,1961.76,2026-04-15,6.1,Bajaj Distributors,False,,,1.05,,,Non-Returnable,1.9
+SKU-1228,Seal-Lite-660,Industrial Tools,Z-B,146,54,193,3725.43,2099.97,2026-04-27,30.7,Infosys Materials,False,,,0.68,,,Non-Returnable,1.23
+SKU-1229,Valve-Ultra-446,Apparel,Z-G,132,56,195,659.93,499.37,2026-04-14,33.1,HCL Packaging,False,,,4.54,,,Non-Returnable,0.22
+SKU-1230,Fitting-Pro-666,Packaging Materials,Z-H,813,450,1993,3474.5,1631.14,2026-05-05,5.6,Bajaj Distributors,False,,,1.7,,,Non-Returnable,2.62
+SKU-1231,Motor-Plus-723,Pharmaceuticals,Z-E,501,269,914,4033.74,1836.45,2026-04-05,35.2,Hero Supply Corp.,True,292.0,2026-09-22,8.56,,,Partial Return,3.24
+SKU-1232,Valve-Max-739,Auto Parts,Z-F,863,498,1986,2544.27,1724.31,2026-04-23,35.7,Godrej Warehouse Supplies,False,,,2.69,,,Partial Return,2.94
+SKU-1233,Hose-Ultra-527,Auto Parts,Z-G,195,266,1755,769.37,514.02,2026-05-01,13.7,Mahindra Parts Ltd.,False,,,7.93,,,Partial Return,1.4
+SKU-1234,Connector-Ultra-903,Auto Parts,Z-D,843,379,1643,557.28,416.41,2026-04-08,43.3,Hero Supply Corp.,False,,,2.12,,,Non-Returnable,1.34
+SKU-1235,Clamp-Lite-809,Electronics,Z-G,510,189,893,4830.87,2036.31,2026-04-27,10.6,Wipro Components,False,,,7.32,,,Partial Return,3.58
+SKU-1236,Seal-Lite-873,Pharmaceuticals,Z-D,191,152,702,975.53,458.03,2026-04-11,6.4,Reliance Logistics,True,249.0,2026-11-11,0.83,,,Partial Return,4.26
+SKU-1237,Widget-Lite-577,FMCG,Z-A,318,119,414,4665.29,3014.91,2026-04-01,15.4,L&T Raw Materials,True,311.0,2026-10-09,3.58,,,Returnable,2.7
+SKU-1238,Capacitor-Max-525,Packaging Materials,Z-B,319,149,815,1688.78,873.83,2025-12-07,0.9,HCL Packaging,False,,,1.74,High Price,1409.15,Non-Returnable,2.34
+SKU-1239,Seal-Standard-736,Pharmaceuticals,Z-A,540,423,1497,1960.09,1207.6,2026-04-25,1.7,HCL Packaging,True,221.0,2026-08-12,3.34,,,Returnable,1.62
+SKU-1240,Seal-Max-428,Apparel,Z-B,267,130,442,86.29,36.78,2026-04-01,31.7,Infosys Materials,False,,,1.8,,,Non-Returnable,4.21
+SKU-1241,Valve-Standard-948,Packaging Materials,Z-B,367,411,1629,1691.99,736.03,2026-05-10,9.3,Bharti Supply Chain,False,,,1.34,,,Partial Return,4.14
+SKU-1242,Bracket-Plus-497,Chemicals,Z-G,316,194,986,2697.43,1771.05,2026-04-04,3.6,Hero Supply Corp.,True,329.0,2026-05-20,4.29,,,Partial Return,0.71
+SKU-1243,Hose-Lite-721,Apparel,Z-E,1323,481,1667,3320.58,1957.8,2026-04-09,11.4,Hero Supply Corp.,False,,,6.95,,,Partial Return,1.62
+SKU-1244,Seal-Max-405,Industrial Tools,Z-A,1069,346,1233,74.9,47.84,2026-04-09,27.6,Tata Supply Co.,False,,,2.91,,80.22,Non-Returnable,1.22
+SKU-1245,Seal-Standard-245,FMCG,Z-C,163,133,552,947.72,682.23,2025-11-24,1.5,HCL Packaging,True,266.0,2026-04-01,15.4,Poor Quality Feedback,949.15,Non-Returnable,0.67
+SKU-1246,Fitting-Standard-598,Industrial Tools,Z-F,127,90,362,3116.6,2368.76,2026-02-01,0.7,Bajaj Distributors,False,,,1.92,No Marketing Push,2635.77,Partial Return,1.95
+SKU-1247,Gasket-Plus-272,Electronics,Z-F,385,161,604,1419.57,771.95,2026-03-31,36.8,Wipro Components,False,,,2.39,,,Non-Returnable,3.92
+SKU-1248,Relay-Standard-211,FMCG,Z-B,1454,350,1823,1022.34,708.91,2026-04-03,4.3,Tata Supply Co.,True,39.0,2026-06-21,1.72,,,Partial Return,2.14
+SKU-1249,Adapter-Max-137,Auto Parts,Z-H,612,383,1439,4462.62,2837.51,2026-04-25,7.1,HCL Packaging,False,,,1.52,,,Non-Returnable,1.95
+SKU-1250,Widget-Ultra-344,FMCG,Z-C,756,176,1013,3314.1,2608.51,2026-04-13,47.0,Reliance Logistics,True,142.0,2026-09-03,10.97,,,Non-Returnable,1.32
+SKU-1251,Hose-Max-630,Industrial Tools,Z-G,346,305,1061,4903.92,2597.26,2026-03-29,48.4,Bajaj Distributors,False,,,7.32,,,Partial Return,1.46
+SKU-1252,Transformer-Standard-278,Packaging Materials,Z-G,241,201,848,2607.48,1435.5,2026-04-29,26.1,Godrej Warehouse Supplies,False,,,7.27,,,Non-Returnable,2.54
+SKU-1253,Relay-Standard-106,FMCG,Z-H,224,80,439,1097.01,520.82,2026-04-20,30.3,Tata Supply Co.,True,147.0,2026-08-26,1.94,,,Non-Returnable,3.44
+SKU-1254,Relay-Max-704,FMCG,Z-G,133,27,145,716.88,433.75,2026-04-07,7.8,Mahindra Parts Ltd.,True,162.0,2026-06-12,7.83,,694.72,Returnable,4.42
+SKU-1255,Fitting-Ultra-941,Auto Parts,Z-B,365,118,543,894.31,654.76,2026-04-05,7.6,L&T Raw Materials,False,,,1.73,,,Returnable,3.19
+SKU-1256,Capacitor-Lite-271,Industrial Tools,Z-H,513,315,1321,704.46,286.45,2026-01-06,1.0,Adani Industrial,False,,,2.15,Low Reliability,601.06,Partial Return,3.08
+SKU-1257,Transformer-Standard-870,Apparel,Z-B,823,270,1087,4146.23,3146.11,2026-03-31,32.6,HCL Packaging,False,,,1.13,,,Returnable,3.55
+SKU-1258,Pump-Max-921,Chemicals,Z-G,584,194,817,4194.09,2644.16,2026-04-16,7.1,Wipro Components,True,149.0,2026-09-29,5.13,,,Partial Return,2.16
+SKU-1259,Valve-Pro-826,Electronics,Z-B,880,175,1164,4031.22,2271.75,2026-05-07,8.2,Bajaj Distributors,False,,,1.38,,,Non-Returnable,4.3
+SKU-1260,Pump-Standard-474,Auto Parts,Z-G,868,297,1646,2438.22,1336.35,2026-04-08,24.4,Bharti Supply Chain,False,,,6.31,,,Partial Return,2.11
+SKU-1261,Panel-Ultra-221,Pharmaceuticals,Z-H,1556,434,1703,2566.3,1833.45,2026-04-08,30.9,Bajaj Distributors,True,56.0,2026-06-18,0.51,,1999.32,Partial Return,2.29
+SKU-1262,Module-Lite-327,Industrial Tools,Z-B,620,209,1347,3089.13,1879.43,2026-03-29,48.2,Reliance Logistics,False,,,1.92,,,Returnable,3.27
+SKU-1263,Switch-Pro-306,Auto Parts,Z-D,134,44,168,1196.77,559.84,2026-05-11,18.3,Bajaj Distributors,False,,,0.5,,,Returnable,0.62
+SKU-1264,Bracket-Plus-461,Packaging Materials,Z-G,180,234,1300,389.66,169.92,2026-04-25,36.4,HCL Packaging,False,,,7.66,,,Non-Returnable,1.87
+SKU-1265,Bracket-Max-720,Pharmaceuticals,Z-H,323,218,927,2555.88,1593.47,2026-01-08,1.9,HCL Packaging,True,161.0,2026-03-17,1.58,Obsolete Model,2236.5,Non-Returnable,4.84
+SKU-1266,Adapter-Plus-888,Pharmaceuticals,Z-F,970,369,1688,4317.02,2559.08,2026-04-27,3.8,Bajaj Distributors,True,142.0,2026-09-03,3.4,,,Non-Returnable,4.79
+SKU-1267,Capacitor-Standard-109,Auto Parts,Z-D,533,112,688,1742.86,1083.75,2026-05-02,24.1,Godrej Warehouse Supplies,False,,,1.05,,,Partial Return,1.49
+SKU-1268,Fitting-Ultra-294,Chemicals,Z-D,256,150,580,1184.58,869.45,2026-04-04,18.1,Tata Supply Co.,True,91.0,2026-06-30,2.89,,,Non-Returnable,3.15
+SKU-1269,Transformer-Pro-968,Chemicals,Z-F,859,270,1371,4350.41,2594.25,2026-04-11,14.4,Infosys Materials,True,325.0,2026-05-18,3.4,,,Non-Returnable,4.71
+SKU-1270,Connector-Standard-455,Packaging Materials,Z-C,779,307,1036,1612.47,650.42,2026-03-31,10.9,L&T Raw Materials,False,,,8.71,,,Non-Returnable,3.14
+SKU-1271,Bracket-Max-661,Auto Parts,Z-D,331,143,651,960.37,547.0,2026-04-17,35.2,Godrej Warehouse Supplies,False,,,1.41,,,Non-Returnable,1.54
+SKU-1272,Board-Standard-234,Pharmaceuticals,Z-B,522,300,1576,4288.73,2051.84,2025-12-01,0.3,Reliance Logistics,True,120.0,2026-04-16,1.25,Obsolete Model,4096.17,Partial Return,1.72
+SKU-1273,Relay-Lite-356,Electronics,Z-G,32,76,302,2408.87,1570.45,2026-04-15,37.4,Bharti Supply Chain,False,,,5.44,,,Partial Return,2.88
+SKU-1274,Bracket-Lite-120,Packaging Materials,Z-B,331,229,819,2905.43,1917.43,2026-04-09,9.1,Bharti Supply Chain,False,,,1.03,,,Partial Return,2.65
+SKU-1275,Fitting-Plus-180,Packaging Materials,Z-E,976,256,1049,3220.87,2484.67,2026-04-17,31.7,L&T Raw Materials,False,,,7.02,,2653.14,Non-Returnable,1.3
+SKU-1276,Gasket-Ultra-398,Auto Parts,Z-G,371,185,655,3752.08,2282.67,2026-04-15,21.0,Mahindra Parts Ltd.,False,,,7.42,,,Returnable,3.69
+SKU-1277,Hose-Lite-861,Apparel,Z-D,60,92,441,2764.75,1135.06,2026-04-18,26.4,Tata Supply Co.,False,,,0.76,,,Partial Return,0.95
+SKU-1278,Seal-Plus-416,Pharmaceuticals,Z-D,445,310,1610,2657.37,1244.3,2026-05-11,33.3,Godrej Warehouse Supplies,True,273.0,2026-07-03,1.85,,,Non-Returnable,2.83
+SKU-1279,Panel-Ultra-652,FMCG,Z-H,811,365,1392,2641.13,1732.08,2026-04-24,45.5,Wipro Components,True,306.0,2027-01-29,1.38,,,Non-Returnable,2.18
+SKU-1280,Panel-Lite-110,Electronics,Z-C,508,155,804,4614.34,3593.57,2026-04-13,15.3,Adani Industrial,False,,,13.59,,,Partial Return,1.31
+SKU-1281,Widget-Standard-482,Pharmaceuticals,Z-G,781,446,1906,3588.94,2362.94,2026-04-19,11.4,Tata Supply Co.,True,246.0,2026-09-04,7.06,,,Partial Return,4.08
+SKU-1282,Hose-Lite-391,Auto Parts,Z-G,449,134,485,596.26,347.11,2026-04-15,14.0,L&T Raw Materials,False,,,5.97,,465.34,Partial Return,0.31
+SKU-1283,Sensor-Lite-375,FMCG,Z-H,3,240,1589,2493.22,1338.27,2026-04-24,39.4,Wipro Components,True,220.0,2026-12-11,1.16,,,Returnable,0.47
+SKU-1284,Motor-Pro-656,Chemicals,Z-C,189,140,493,4149.85,1862.39,2025-12-05,0.8,Wipro Components,True,156.0,2026-03-26,19.45,Seasonal Product,3893.6,Returnable,2.7
+SKU-1285,Valve-Plus-498,Auto Parts,Z-F,70,103,424,2628.58,1317.77,2026-04-03,15.3,Godrej Warehouse Supplies,False,,,3.66,,,Partial Return,1.25
+SKU-1286,Sensor-Max-748,Packaging Materials,Z-F,30,22,130,2009.25,999.07,2026-03-08,1.4,Hero Supply Corp.,False,,,2.79,Better Competitor Product,2072.02,Returnable,0.96
+SKU-1287,Module-Ultra-733,Industrial Tools,Z-A,222,45,222,3967.76,1786.81,2026-04-29,16.2,HCL Packaging,False,,,4.37,,4133.05,Non-Returnable,3.72
+SKU-1288,Widget-Ultra-486,Industrial Tools,Z-C,399,174,613,2817.17,1738.46,2026-04-12,9.9,Mahindra Parts Ltd.,False,,,11.81,,,Non-Returnable,3.72
+SKU-1289,Bracket-Standard-981,FMCG,Z-B,475,205,1187,2730.95,1588.41,2026-04-03,25.5,Hero Supply Corp.,True,124.0,2026-06-27,1.79,,,Partial Return,1.35
+SKU-1290,Fitting-Pro-774,Packaging Materials,Z-D,454,296,1173,3084.54,1631.85,2026-04-02,16.4,Tata Supply Co.,False,,,1.81,,,Returnable,0.41
+SKU-1291,Panel-Max-994,Electronics,Z-D,49,71,319,3306.71,2018.18,2026-03-30,29.7,Reliance Logistics,False,,,1.42,,,Partial Return,3.65
+SKU-1292,Widget-Max-771,Chemicals,Z-B,285,285,1058,3730.21,2820.68,2026-04-20,39.8,Reliance Logistics,True,345.0,2027-04-03,1.6,,,Non-Returnable,0.57
+SKU-1293,Valve-Standard-199,Apparel,Z-D,1136,246,1188,2871.64,2237.01,2026-04-08,37.6,Adani Industrial,False,,,2.37,,2794.02,Partial Return,2.4
+SKU-1294,Hose-Plus-206,FMCG,Z-C,419,257,1226,2692.81,1723.31,2026-04-21,45.2,HCL Packaging,True,196.0,2026-08-12,17.36,,,Non-Returnable,4.17
+SKU-1295,Gasket-Standard-346,Pharmaceuticals,Z-G,756,387,1668,4810.18,2785.09,2026-04-18,0.5,Reliance Logistics,True,175.0,2026-06-25,4.54,,,Non-Returnable,0.23
+SKU-1296,Cable-Max-976,Industrial Tools,Z-A,742,459,1680,4599.6,2780.5,2026-04-07,46.3,Mahindra Parts Ltd.,False,,,2.28,,,Non-Returnable,1.91
+SKU-1297,Panel-Lite-475,Pharmaceuticals,Z-D,102,169,624,2866.87,1396.09,2026-05-09,36.3,Wipro Components,True,118.0,2026-06-12,2.26,,,Returnable,3.06
+SKU-1298,Filter-Pro-848,Packaging Materials,Z-B,981,268,1697,4404.97,2527.23,2026-05-06,43.6,Infosys Materials,False,,,1.62,,,Partial Return,4.66
+SKU-1299,Seal-Ultra-491,Electronics,Z-E,337,183,1173,1667.82,1132.63,2026-05-04,3.0,Hero Supply Corp.,False,,,9.99,,,Non-Returnable,3.81

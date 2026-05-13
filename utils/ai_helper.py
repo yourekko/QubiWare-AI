@@ -3,8 +3,16 @@
 import os
 import re
 from datetime import datetime
+from typing import NamedTuple
 
 import pandas as pd
+
+
+class CopilotReply(NamedTuple):
+    """CoPilot response body plus which engine produced it (for UI transparency)."""
+    html: str
+    engine_id: str
+    engine_label: str
 
 try:
     from google import genai
@@ -24,6 +32,11 @@ You help warehouse managers, logistics teams, and operations heads make data-dri
 
 You have access to warehouse data including inventory, orders, dispatch, zone utilization,
 and inbound shipment information.
+
+You run on QubiWare's stack: when an API key is configured, an external cloud LLM
+(OpenAI or Google Gemini) generates your reply from the DATA CONTEXT below. Answer
+a wide variety of operational questions using that context; do not imply you are
+only a fixed script unless the user is in rule-based fallback (no API).
 
 RESPONSE FORMAT INSTRUCTIONS:
 - Always structure responses with clear sections using markdown headers (##, ###)
@@ -888,8 +901,8 @@ def ask_ai_fallback(question, data):
         return _ai_html_panel("Warehouse Intelligence Summary", "linear-gradient(135deg,#2563EB,#06B6D4)", body)
 
 
-def get_ai_response(question, data):
-    """Main function to get AI response - tries API first, falls back to rules."""
+def get_copilot_reply(question, data):
+    """Return HTML plus engine metadata (external LLM vs built-in rules)."""
     gemini_key = os.environ.get("GEMINI_API_KEY", "")
     openai_key = os.environ.get("OPENAI_API_KEY", "")
     provider = (os.environ.get("AI_PROVIDER") or "").strip().lower()
@@ -900,42 +913,62 @@ def get_ai_response(question, data):
     if inv is not None:
         context = supplement_context_with_skus(context, question, inv)
 
+    def rules_reply():
+        r = ask_ai_fallback(question, data)
+        return CopilotReply(r, "rules", "Built-in rules engine (no external LLM call)")
+
     def _fallback_with_error(name, err):
-        return f"{name} API error: {str(err)}\n\nFalling back to rule-based analysis...\n\n" + ask_ai_fallback(question, data)
+        body = f"{name} API error: {str(err)}\n\nFalling back to rule-based analysis...\n\n" + ask_ai_fallback(question, data)
+        return CopilotReply(
+            body,
+            "rules_after_api_error",
+            f"Built-in rules (external {name} call failed)",
+        )
 
     if use_gemini_first:
         if gemini_key and GEMINI_AVAILABLE:
             try:
-                return ask_ai_gemini(question, context, gemini_key)
+                text = ask_ai_gemini(question, context, gemini_key)
+                return CopilotReply(text, "gemini", "Google Gemini (external AI)")
             except Exception as e:
                 err = e
                 if openai_key and OPENAI_AVAILABLE:
                     try:
-                        return ask_ai_openai(question, context, openai_key)
+                        text = ask_ai_openai(question, context, openai_key)
+                        return CopilotReply(text, "openai", "OpenAI (external AI)")
                     except Exception as e2:
                         return _fallback_with_error("OpenAI", e2)
                 return _fallback_with_error("Gemini", err)
         if openai_key and OPENAI_AVAILABLE:
             try:
-                return ask_ai_openai(question, context, openai_key)
+                text = ask_ai_openai(question, context, openai_key)
+                return CopilotReply(text, "openai", "OpenAI (external AI)")
             except Exception as e:
                 return _fallback_with_error("OpenAI", e)
     else:
         if openai_key and OPENAI_AVAILABLE:
             try:
-                return ask_ai_openai(question, context, openai_key)
+                text = ask_ai_openai(question, context, openai_key)
+                return CopilotReply(text, "openai", "OpenAI (external AI)")
             except Exception as e:
                 err = e
                 if gemini_key and GEMINI_AVAILABLE:
                     try:
-                        return ask_ai_gemini(question, context, gemini_key)
+                        text = ask_ai_gemini(question, context, gemini_key)
+                        return CopilotReply(text, "gemini", "Google Gemini (external AI)")
                     except Exception as e2:
                         return _fallback_with_error("Gemini", e2)
                 return _fallback_with_error("OpenAI", err)
         if gemini_key and GEMINI_AVAILABLE:
             try:
-                return ask_ai_gemini(question, context, gemini_key)
+                text = ask_ai_gemini(question, context, gemini_key)
+                return CopilotReply(text, "gemini", "Google Gemini (external AI)")
             except Exception as e:
                 return _fallback_with_error("Gemini", e)
 
-    return ask_ai_fallback(question, data)
+    return rules_reply()
+
+
+def get_ai_response(question, data):
+    """Backward-compatible: HTML body only (same as get_copilot_reply(...).html)."""
+    return get_copilot_reply(question, data).html

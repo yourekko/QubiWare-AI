@@ -30,7 +30,7 @@ from utils.analytics import (
     get_customer_impact, get_picking_error_analysis, get_bay_optimization,
     generate_inventory_tab_report,
 )
-from utils.ai_helper import get_ai_response
+from utils.ai_helper import get_copilot_reply
 from utils.report_generator import generate_pdf_report
 
 # ─── Page Configuration ──────────────────────────────────────────────
@@ -43,7 +43,7 @@ st.set_page_config(
 
 # Streamlit Community Cloud: keys from App → Secrets (TOML). Local: use .env via load_dotenv above.
 try:
-    for _secret_key in ("GEMINI_API_KEY", "OPENAI_API_KEY"):
+    for _secret_key in ("GEMINI_API_KEY", "OPENAI_API_KEY", "AI_PROVIDER", "OPENAI_MODEL"):
         if _secret_key in st.secrets:
             os.environ[_secret_key] = str(st.secrets[_secret_key])
 except Exception:
@@ -1438,6 +1438,27 @@ elif page == "Zone Intelligence":
 elif page == "AI CoPilot":
     render_header("AI CoPilot", "Ask natural-language questions about warehouse, inventory and dispatch operations")
 
+    def _copilot_assistant_caption(engine_label):
+        cap = '<div style="font-size:0.65rem; font-weight:700; color:#2563EB; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:2px;">QubiWare AI CoPilot</div>'
+        if engine_label:
+            cap += f'<div style="font-size:0.62rem; color:#64748B; margin-bottom:6px;line-height:1.35;">{engine_label}</div>'
+        return cap
+
+    _prov = (os.environ.get("AI_PROVIDER") or "").strip().lower()
+    _use_gemini_first = _prov in ("gemini", "google")
+    _gk = bool(os.environ.get("GEMINI_API_KEY", "").strip())
+    _ok = bool(os.environ.get("OPENAI_API_KEY", "").strip())
+    if _ok and not _use_gemini_first:
+        _copilot_header_sub = "External AI engine: OpenAI &middot; Natural answers from your warehouse data context"
+    elif _use_gemini_first and _gk:
+        _copilot_header_sub = "External AI engine: Google Gemini &middot; Natural answers from your warehouse data context"
+    elif _ok:
+        _copilot_header_sub = "External AI engine: OpenAI &middot; Natural answers from your warehouse data context"
+    elif _gk:
+        _copilot_header_sub = "External AI engine: Google Gemini &middot; Natural answers from your warehouse data context"
+    else:
+        _copilot_header_sub = "Built-in rules engine &middot; Add OPENAI_API_KEY or GEMINI_API_KEY in Secrets for external LLM"
+
     suggestions = [
         "Which SKUs are at low-stock risk?",
         "Which warehouse zone is most congested?",
@@ -1454,7 +1475,10 @@ elif page == "AI CoPilot":
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    st.markdown('<div class="chat-outer"><div class="chat-header"><div class="chat-header-dot"></div><div><div class="chat-header-text">QubiWare AI CoPilot</div><div class="chat-header-sub">Warehouse intelligence engine &middot; Ask anything</div></div></div></div>', unsafe_allow_html=True)
+    st.markdown(
+        f'<div class="chat-outer"><div class="chat-header"><div class="chat-header-dot"></div><div><div class="chat-header-text">QubiWare AI CoPilot</div><div class="chat-header-sub">{_copilot_header_sub}</div></div></div></div>',
+        unsafe_allow_html=True,
+    )
 
     if len(st.session_state.messages) == 0:
         st.markdown('<div style="text-align:center;padding:28px 20px 8px 20px;"><div style="display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;background:linear-gradient(135deg,#2563EB,#06B6D4);border-radius:14px;margin-bottom:12px;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><h4 style="color:#111827;margin:0 0 6px 0;font-weight:700;font-size:1.05rem;">How can I help you today?</h4><p style="color:#64748B;font-size:0.82rem;max-width:460px;margin:0 auto;line-height:1.5;">Ask QubiWare AI questions like: Which SKUs need reorder? Which zone is congested? Which orders are delayed?</p></div>', unsafe_allow_html=True)
@@ -1469,14 +1493,16 @@ elif page == "AI CoPilot":
                     if st.button(s, key=f"suggestion_{i}"):
                         st.session_state.messages.append({"role": "user", "content": s})
                         with st.spinner("Analyzing..."):
-                            response = get_ai_response(s, data)
-                        st.session_state.messages.append({"role": "assistant", "content": response})
+                            reply = get_copilot_reply(s, data)
+                        st.session_state.messages.append(
+                            {"role": "assistant", "content": reply.html, "engine_label": reply.engine_label}
+                        )
                         st.rerun()
 
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             if msg["role"] == "assistant":
-                st.markdown(f'<div style="font-size:0.65rem; font-weight:700; color:#2563EB; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:4px;">QubiWare AI CoPilot</div>', unsafe_allow_html=True)
+                st.markdown(_copilot_assistant_caption(msg.get("engine_label")), unsafe_allow_html=True)
             st.markdown(msg["content"], unsafe_allow_html=True)
 
     if prompt := st.chat_input("Ask about inventory, orders, zones, dispatch, suppliers..."):
@@ -1485,22 +1511,44 @@ elif page == "AI CoPilot":
         st.session_state.messages.append({"role": "user", "content": prompt})
 
         with st.chat_message("assistant"):
-            st.markdown('<div style="font-size:0.65rem; font-weight:700; color:#2563EB; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:4px;">QubiWare AI CoPilot</div>', unsafe_allow_html=True)
             with st.spinner("Analyzing warehouse data..."):
-                response = get_ai_response(prompt, data)
-            st.markdown(response, unsafe_allow_html=True)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+                reply = get_copilot_reply(prompt, data)
+            st.markdown(_copilot_assistant_caption(reply.engine_label), unsafe_allow_html=True)
+            st.markdown(reply.html, unsafe_allow_html=True)
+        st.session_state.messages.append(
+            {"role": "assistant", "content": reply.html, "engine_label": reply.engine_label}
+        )
 
     col1, col2, col3 = st.columns([2, 1, 1])
     with col1:
-        gemini_key = os.environ.get("GEMINI_API_KEY", "")
-        openai_key = os.environ.get("OPENAI_API_KEY", "")
-        if gemini_key:
-            st.markdown(f'<span style="font-size:0.72rem; color:#10B981;">{render_badge("Gemini API Connected", "green")}</span>', unsafe_allow_html=True)
+        gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
+        openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
+        prov = (os.environ.get("AI_PROVIDER") or "").strip().lower()
+        gem_first = prov in ("gemini", "google")
+        if openai_key and gemini_key:
+            order = "Gemini fallback" if not gem_first else "OpenAI fallback"
+            primary = "Gemini" if gem_first else "OpenAI"
+            st.markdown(
+                f'<span style="font-size:0.72rem; color:#10B981;">{render_badge(f"External AI: {primary} (primary)", "green")}</span> '
+                f'<span style="font-size:0.72rem; color:#64748B;">{order}</span>',
+                unsafe_allow_html=True,
+            )
         elif openai_key:
-            st.markdown(f'<span style="font-size:0.72rem; color:#10B981;">{render_badge("OpenAI API Connected", "green")}</span>', unsafe_allow_html=True)
+            st.markdown(
+                f'<span style="font-size:0.72rem; color:#10B981;">{render_badge("External AI: OpenAI connected", "green")}</span>',
+                unsafe_allow_html=True,
+            )
+        elif gemini_key:
+            st.markdown(
+                f'<span style="font-size:0.72rem; color:#10B981;">{render_badge("External AI: Gemini connected", "green")}</span>',
+                unsafe_allow_html=True,
+            )
         else:
-            st.markdown(f'<span style="font-size:0.72rem;">{render_badge("Rule-based Engine", "slate")} Add API key to .env for enhanced AI</span>', unsafe_allow_html=True)
+            st.markdown(
+                f'<span style="font-size:0.72rem;">{render_badge("Rules engine only", "slate")} '
+                "Add OPENAI_API_KEY or GEMINI_API_KEY in Secrets for the external LLM</span>",
+                unsafe_allow_html=True,
+            )
     with col3:
         if len(st.session_state.messages) > 0:
             if st.button("Clear Chat", type="primary"):

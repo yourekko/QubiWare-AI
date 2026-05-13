@@ -30,7 +30,10 @@ from utils.analytics import (
     get_customer_impact, get_picking_error_analysis, get_bay_optimization,
     generate_inventory_tab_report,
 )
-from utils.ai_helper import get_copilot_reply
+try:
+    import markdown
+except ImportError:
+    markdown = None
 from utils.report_generator import generate_pdf_report
 
 # ─── Page Configuration ──────────────────────────────────────────────
@@ -440,8 +443,36 @@ div[data-testid="stVerticalBlock"] .stButton > button[kind="secondary"]:hover {
 .chat-header { background: linear-gradient(135deg, #0F172A, #1E293B); padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
 .chat-header-dot { width: 10px; height: 10px; background: #10B981; border-radius: 50%; box-shadow: 0 0 6px rgba(16,185,129,0.5); }
 .chat-header-text { color: white; font-size: 0.95rem; font-weight: 600; }
-.chat-header-sub { color: #64748B; font-size: 0.78rem; }
+.chat-header-sub { color: #94A3B8; font-size: 0.78rem; line-height: 1.45; }
 [data-testid="stChatInput"] textarea { border-radius: var(--radius) !important; border-color: var(--border) !important; font-family: 'Inter', sans-serif !important; }
+
+/* ── CoPilot answer cards (markdown + HTML fallback) ── */
+.copilot-shell { margin: 4px 0 12px 0; border-radius: 16px; overflow: hidden; border: 1px solid #E2E8F0; background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%); box-shadow: 0 4px 24px -4px rgba(15, 23, 42, 0.08); }
+.copilot-shell--md { border-left: 4px solid #2563EB; }
+.copilot-shell--builtin { border-left: 4px solid #06B6D4; }
+.copilot-pro-answer { padding: 20px 22px 22px 22px; font-size: 0.9rem; line-height: 1.68; color: #1E293B; font-family: 'Inter', system-ui, sans-serif; }
+.copilot-pro-answer > *:first-child { margin-top: 0 !important; }
+.copilot-pro-answer h1, .copilot-pro-answer h2, .copilot-pro-answer h3 { color: #0F172A; font-weight: 800; letter-spacing: -0.02em; line-height: 1.25; }
+.copilot-pro-answer h1 { font-size: 1.15rem; margin: 0.5em 0 0.4em 0; }
+.copilot-pro-answer h2 { font-size: 1.05rem; margin: 1.15em 0 0.45em 0; padding-bottom: 6px; border-bottom: 1px solid #E2E8F0; }
+.copilot-pro-answer h3 { font-size: 0.95rem; margin: 1em 0 0.35em 0; color: #334155; }
+.copilot-pro-answer p { margin: 0.55em 0; }
+.copilot-pro-answer ul, .copilot-pro-answer ol { margin: 0.5em 0 0.6em 0; padding-left: 1.35em; }
+.copilot-pro-answer li { margin: 0.28em 0; }
+.copilot-pro-answer strong { color: #0F172A; font-weight: 700; }
+.copilot-pro-answer hr { border: none; border-top: 1px solid #E2E8F0; margin: 1.25em 0; }
+.copilot-pro-answer code { background: #F1F5F9; padding: 2px 7px; border-radius: 6px; font-size: 0.84em; color: #0F172A; }
+.copilot-pro-answer pre { background: #0F172A; color: #E2E8F0; padding: 14px 16px; border-radius: 10px; overflow-x: auto; font-size: 0.82rem; }
+.copilot-pro-answer pre code { background: transparent; color: inherit; padding: 0; }
+.copilot-pro-answer blockquote { margin: 0.6em 0; padding: 10px 14px; border-left: 3px solid #2563EB; background: #EFF6FF; border-radius: 0 8px 8px 0; color: #1E40AF; font-size: 0.88rem; }
+.copilot-pro-answer table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin: 12px 0; border-radius: 10px; overflow: hidden; border: 1px solid #E2E8F0; }
+.copilot-pro-answer thead { background: linear-gradient(180deg, #F8FAFC, #F1F5F9); }
+.copilot-pro-answer th { text-align: left; padding: 10px 12px; font-weight: 700; color: #475569; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.04em; border-bottom: 2px solid #E2E8F0; }
+.copilot-pro-answer td { padding: 9px 12px; border-bottom: 1px solid #F1F5F9; color: #334155; }
+.copilot-pro-answer tr:nth-child(even) td { background: #FAFAFA; }
+.copilot-msg-label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.copilot-msg-label-bar { width: 4px; height: 18px; border-radius: 2px; background: linear-gradient(180deg, #2563EB, #06B6D4); flex-shrink: 0; }
+.copilot-msg-label-text { font-size: 0.65rem; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 0.85px; }
 
 /* ── Recommendation Cards ── */
 .rec-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; transition: transform 0.15s, box-shadow 0.15s; }
@@ -577,6 +608,57 @@ def render_recommendation(num, text):
 
 def render_badge(text, color="blue"):
     return f'<span class="badge badge-{color}">{text}</span>'
+
+
+def _copilot_answer_is_builtin_html(s):
+    """Detect rich HTML from rule-based fallback (vs markdown from cloud LLM)."""
+    t = (s or "").strip()
+    if not t.startswith("<"):
+        return False
+    head = t[:4000]
+    markers = (
+        "QubiWare AI CoPilot",
+        "border-radius:14px",
+        "linear-gradient(135deg,#0F172A",
+        "SKU-specific inventory",
+        "Warehouse Intelligence Summary",
+        "Low Stock Risk Analysis",
+    )
+    return any(m in head for m in markers)
+
+
+def render_copilot_answer_body(raw):
+    """Render CoPilot body: styled card + typography for markdown; shell wrap for HTML panels."""
+    raw = raw or ""
+    if not raw.strip():
+        st.caption("No response.")
+        return
+    if _copilot_answer_is_builtin_html(raw):
+        st.markdown(
+            f'<div class="copilot-shell copilot-shell--builtin">{raw}</div>',
+            unsafe_allow_html=True,
+        )
+        return
+    if markdown is None:
+        st.markdown(raw)
+        return
+    try:
+        body_md = markdown.markdown(raw, extensions=["extra", "nl2br", "sane_lists"])
+    except Exception:
+        body_md = f"<pre>{html_stdlib.escape(raw)}</pre>"
+    inner = f'<article class="copilot-pro-answer">{body_md}</article>'
+    st.markdown(
+        f'<div class="copilot-shell copilot-shell--md">{inner}</div>',
+        unsafe_allow_html=True,
+    )
+
+
+def render_copilot_assistant_label():
+    st.markdown(
+        '<div class="copilot-msg-label"><div class="copilot-msg-label-bar"></div>'
+        '<div class="copilot-msg-label-text">Intelligence brief</div></div>',
+        unsafe_allow_html=True,
+    )
 
 
 def styled_chart(fig, height=380):
@@ -1438,26 +1520,10 @@ elif page == "Zone Intelligence":
 elif page == "AI CoPilot":
     render_header("AI CoPilot", "Ask natural-language questions about warehouse, inventory and dispatch operations")
 
-    def _copilot_assistant_caption(engine_label):
-        cap = '<div style="font-size:0.65rem; font-weight:700; color:#2563EB; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:2px;">QubiWare AI CoPilot</div>'
-        if engine_label:
-            cap += f'<div style="font-size:0.62rem; color:#64748B; margin-bottom:6px;line-height:1.35;">{engine_label}</div>'
-        return cap
-
-    _prov = (os.environ.get("AI_PROVIDER") or "").strip().lower()
-    _use_gemini_first = _prov in ("gemini", "google")
-    _gk = bool(os.environ.get("GEMINI_API_KEY", "").strip())
-    _ok = bool(os.environ.get("OPENAI_API_KEY", "").strip())
-    if _ok and not _use_gemini_first:
-        _copilot_header_sub = "External AI engine: OpenAI &middot; Natural answers from your warehouse data context"
-    elif _use_gemini_first and _gk:
-        _copilot_header_sub = "External AI engine: Google Gemini &middot; Natural answers from your warehouse data context"
-    elif _ok:
-        _copilot_header_sub = "External AI engine: OpenAI &middot; Natural answers from your warehouse data context"
-    elif _gk:
-        _copilot_header_sub = "External AI engine: Google Gemini &middot; Natural answers from your warehouse data context"
-    else:
-        _copilot_header_sub = "Built-in rules engine &middot; Add OPENAI_API_KEY or GEMINI_API_KEY in Secrets for external LLM"
+    _copilot_header_sub = (
+        "Natural-language answers from your synced warehouse data &middot; "
+        "Structured for operations and stakeholder reviews"
+    )
 
     suggestions = [
         "Which SKUs are at low-stock risk?",
@@ -1495,15 +1561,15 @@ elif page == "AI CoPilot":
                         with st.spinner("Analyzing..."):
                             reply = get_copilot_reply(s, data)
                         st.session_state.messages.append(
-                            {"role": "assistant", "content": reply.html, "engine_label": reply.engine_label}
+                            {"role": "assistant", "content": reply.html}
                         )
                         st.rerun()
 
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             if msg["role"] == "assistant":
-                st.markdown(_copilot_assistant_caption(msg.get("engine_label")), unsafe_allow_html=True)
-            st.markdown(msg["content"], unsafe_allow_html=True)
+                render_copilot_assistant_label()
+            render_copilot_answer_body(msg["content"])
 
     if prompt := st.chat_input("Ask about inventory, orders, zones, dispatch, suppliers..."):
         with st.chat_message("user"):
@@ -1513,43 +1579,14 @@ elif page == "AI CoPilot":
         with st.chat_message("assistant"):
             with st.spinner("Analyzing warehouse data..."):
                 reply = get_copilot_reply(prompt, data)
-            st.markdown(_copilot_assistant_caption(reply.engine_label), unsafe_allow_html=True)
-            st.markdown(reply.html, unsafe_allow_html=True)
+            render_copilot_assistant_label()
+            render_copilot_answer_body(reply.html)
         st.session_state.messages.append(
-            {"role": "assistant", "content": reply.html, "engine_label": reply.engine_label}
+            {"role": "assistant", "content": reply.html}
         )
 
-    col1, col2, col3 = st.columns([2, 1, 1])
-    with col1:
-        gemini_key = os.environ.get("GEMINI_API_KEY", "").strip()
-        openai_key = os.environ.get("OPENAI_API_KEY", "").strip()
-        prov = (os.environ.get("AI_PROVIDER") or "").strip().lower()
-        gem_first = prov in ("gemini", "google")
-        if openai_key and gemini_key:
-            order = "Gemini fallback" if not gem_first else "OpenAI fallback"
-            primary = "Gemini" if gem_first else "OpenAI"
-            st.markdown(
-                f'<span style="font-size:0.72rem; color:#10B981;">{render_badge(f"External AI: {primary} (primary)", "green")}</span> '
-                f'<span style="font-size:0.72rem; color:#64748B;">{order}</span>',
-                unsafe_allow_html=True,
-            )
-        elif openai_key:
-            st.markdown(
-                f'<span style="font-size:0.72rem; color:#10B981;">{render_badge("External AI: OpenAI connected", "green")}</span>',
-                unsafe_allow_html=True,
-            )
-        elif gemini_key:
-            st.markdown(
-                f'<span style="font-size:0.72rem; color:#10B981;">{render_badge("External AI: Gemini connected", "green")}</span>',
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(
-                f'<span style="font-size:0.72rem;">{render_badge("Rules engine only", "slate")} '
-                "Add OPENAI_API_KEY or GEMINI_API_KEY in Secrets for the external LLM</span>",
-                unsafe_allow_html=True,
-            )
-    with col3:
+    _foot_spacer, _foot_btn = st.columns([5, 1])
+    with _foot_btn:
         if len(st.session_state.messages) > 0:
             if st.button("Clear Chat", type="primary"):
                 st.session_state.messages = []

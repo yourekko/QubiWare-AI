@@ -104,9 +104,13 @@ html, body, [class*="css"] {
 .stMarkdown, .stPlotlyChart, .stDataFrame { margin-bottom: 0 !important; }
 div[data-testid="stVerticalBlock"] > div { gap: 0.4rem; }
 
-/* ── Hide Streamlit Chrome ── */
-header[data-testid="stHeader"] { background: transparent !important; }
-#MainMenu, header, footer { visibility: hidden; }
+/* ── Streamlit chrome: keep header (sidebar toggle) visible; hide overflow menu & deploy ── */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    visibility: visible !important;
+    min-height: 3rem !important;
+}
+#MainMenu, footer { visibility: hidden; }
 .stDeployButton { display: none !important; }
 
 /* ── Sidebar ── */

@@ -671,22 +671,6 @@ if page == "Product Overview":
     # CTA
     st.markdown('<div style="background:linear-gradient(135deg,#0F172A,#1E293B);border-radius:14px;padding:28px 32px;text-align:center;"><div style="font-size:1rem;font-weight:700;color:white;margin-bottom:6px;">Ready to explore?</div><div style="font-size:0.85rem;color:#94A3B8;max-width:500px;margin:0 auto;">Start the demo from <strong style="color:#60A5FA;">Executive Dashboard</strong> to see live KPIs, AI risk alerts, intelligent insights and PDF reporting in action.</div></div>', unsafe_allow_html=True)
 
-    with st.expander("Demo checklist — map stakeholder questions to the app", expanded=False):
-        st.markdown(
-            """
-| Topic | Where in QubiWare AI |
-|------|----------------------|
-| Why dead stock, expensive / unreliable / bulk, perishable loss, storage cost | **Inventory Intelligence** → tabs *Dead Stock Analysis*, *Liquidation*, *Resource & charges* |
-| Break-even / discount / return / bulk clearance | **Liquidation** tab + **AI CoPilot** (e.g. “what to do with dead stock”) |
-| Reduce warehouse resources & charges | **Resource & charges** tab + **AI CoPilot** (“reduce warehouse cost”, “energy cost”) |
-| Why delivery delayed, pending orders, picking errors | **Dispatch Intelligence** → *Delayed*, *Pending*, *Picking Errors*, *Delay Root Causes* |
-| Best bays, routes, efficiency, cost | **Dispatch** → *Route & Bay Optimization* |
-| Zones causing delay, customer impact | **Dispatch** → charts + *Customer Impact*; **Zone Intelligence** for congestion |
-| Critical / warning / normal zones, vehicles, until when critical, revenue | **Zone Intelligence** → KPIs, charts, *Zone Transport & Revenue* table |
-| Daily narrative & actions | **Daily AI Report** + **AI CoPilot** |
-            """
-        )
-
     render_footer()
 
 

@@ -5,8 +5,8 @@ import numpy as np
 from datetime import datetime, timedelta
 
 
-def df_to_styled_table(df, title="", subtitle="", max_rows=15, highlight_cols=None, status_col=None):
-    """Convert a DataFrame to a premium styled HTML table with optional title and status badges."""
+def df_to_styled_table(df, title="", subtitle="", max_rows=15, highlight_cols=None, status_col=None, wow_insight_html=None):
+    """Convert a DataFrame to a premium styled HTML table with optional title, status badges, and AI insight strip."""
     highlight_cols = highlight_cols or {}
     df_display = df.head(max_rows)
 
@@ -21,6 +21,9 @@ def df_to_styled_table(df, title="", subtitle="", max_rows=15, highlight_cols=No
         h += '</div></div>'
     else:
         h += '<div style="background:white;border:1px solid #E5E7EB;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:16px;">'
+
+    if wow_insight_html:
+        h += str(wow_insight_html)
 
     h += '<div style="overflow-x:auto;">'
     h += '<table style="width:100%;border-collapse:collapse;font-size:0.78rem;">'

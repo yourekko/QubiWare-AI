@@ -30,6 +30,7 @@ from utils.analytics import (
     get_customer_impact, get_picking_error_analysis, get_bay_optimization,
     generate_inventory_tab_report,
 )
+from utils.table_wow import get_table_wow_html
 try:
     import markdown
 except ImportError:
@@ -477,6 +478,15 @@ div[data-testid="stVerticalBlock"] .stButton > button[kind="secondary"]:hover {
 .copilot-msg-label { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .copilot-msg-label-bar { width: 4px; height: 18px; border-radius: 2px; background: linear-gradient(180deg, #2563EB, #06B6D4); flex-shrink: 0; }
 .copilot-msg-label-text { font-size: 0.65rem; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 0.85px; }
+
+/* AI insight strip (OpenAI + rules) under intelligence tables */
+.qw-wow-insight { border-bottom: 1px solid #E5E7EB; background: linear-gradient(118deg, #EEF2FF 0%, #ECFEFF 48%, #FFFBEB 100%); }
+.qw-wow-insight-head { display: flex; align-items: center; gap: 8px; padding: 11px 20px 5px 20px; font-size: 0.62rem; font-weight: 800; color: #3730A3; text-transform: uppercase; letter-spacing: 0.7px; }
+.qw-wow-dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg,#6366F1,#2563EB); box-shadow: 0 0 12px rgba(99,102,241,0.45); flex-shrink: 0; }
+.qw-wow-insight-body { padding: 0 20px 15px 20px; }
+.qw-wow-insight-body p { margin: 0 0 6px 0 !important; font-size: 0.8rem; color: #334155; line-height: 1.55; }
+.qw-wow-insight-body ul { margin: 4px 0 0 0 !important; }
+.qw-wow-insight-body li { font-size: 0.8rem; color: #334155; }
 
 /* ── Recommendation Cards ── */
 .rec-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 12px; transition: transform 0.15s, box-shadow 0.15s; }
@@ -975,7 +985,11 @@ elif page == "Inventory Intelligence":
             render_alert(f"<strong>{len(low_stock)} SKUs</strong> are at critical low stock. Immediate reorder required.", "critical")
             df_ls = low_stock[["sku_id", "product_name", "category", "warehouse_zone", "current_stock", "reorder_level", "max_stock", "supplier_name"]].copy()
             df_ls.columns = ["SKU", "Product", "Category", "Zone", "Stock", "Reorder Lvl", "Max Stock", "Supplier"]
-            st.markdown(df_to_styled_table(df_ls, "Low Stock Items", f"{len(low_stock)} SKUs below reorder level", highlight_cols={"Stock": "#EF4444", "SKU": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_ls, "Low Stock Items", f"{len(low_stock)} SKUs below reorder level",
+                highlight_cols={"Stock": "#EF4444", "SKU": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_low_stock", "Low Stock Items", f"{len(low_stock)} SKUs below reorder level", df_ls),
+            ), unsafe_allow_html=True)
         else:
             render_alert("No low stock items detected.", "success")
         _inventory_tab_report_ui("low_stock")
@@ -987,7 +1001,11 @@ elif page == "Inventory Intelligence":
             render_alert(f"<strong>{len(overstock)} SKUs</strong> are overstocked and occupying excess space.", "warning")
             df_os = overstock[["sku_id", "product_name", "category", "warehouse_zone", "current_stock", "max_stock", "unit_price"]].copy()
             df_os.columns = ["SKU", "Product", "Category", "Zone", "Stock", "Max Stock", "Unit Price"]
-            st.markdown(df_to_styled_table(df_os, "Overstock Items", f"{len(overstock)} SKUs above 85% max capacity", highlight_cols={"Stock": "#F59E0B", "SKU": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_os, "Overstock Items", f"{len(overstock)} SKUs above 85% max capacity",
+                highlight_cols={"Stock": "#F59E0B", "SKU": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_overstock", "Overstock Items", f"{len(overstock)} SKUs above 85% max capacity", df_os),
+            ), unsafe_allow_html=True)
         else:
             render_alert("No overstock items detected.", "success")
         _inventory_tab_report_ui("overstock")
@@ -1001,7 +1019,11 @@ elif page == "Inventory Intelligence":
             render_alert(f"<strong>{len(dead_stock)} SKUs</strong> have had no movement for over 60 days.", "warning")
             df_ds = dead_display[["sku_id", "product_name", "category", "warehouse_zone", "current_stock", "days_inactive", "unit_price"]].copy()
             df_ds.columns = ["SKU", "Product", "Category", "Zone", "Stock", "Days Inactive", "Unit Price"]
-            st.markdown(df_to_styled_table(df_ds, "Dead Stock Items", f"{len(dead_stock)} SKUs with no movement > 60 days", highlight_cols={"Days Inactive": "#8B5CF6", "SKU": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_ds, "Dead Stock Items", f"{len(dead_stock)} SKUs with no movement > 60 days",
+                highlight_cols={"Days Inactive": "#8B5CF6", "SKU": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_dead_stock", "Dead Stock Items", f"{len(dead_stock)} SKUs with no movement > 60 days", df_ds),
+            ), unsafe_allow_html=True)
         else:
             render_alert("No dead stock items detected.", "success")
         _inventory_tab_report_ui("dead_stock")
@@ -1012,7 +1034,11 @@ elif page == "Inventory Intelligence":
         df_fm = fast_moving[["sku_id", "product_name", "category", "warehouse_zone", "avg_daily_sales", "current_stock", "reorder_level"]].copy()
         df_fm.columns = ["SKU", "Product", "Category", "Zone", "Avg Daily Sales", "Stock", "Reorder Lvl"]
         df_fm["Avg Daily Sales"] = df_fm["Avg Daily Sales"].round(1)
-        st.markdown(df_to_styled_table(df_fm, "Fast Moving SKUs", "Top SKUs by daily sales velocity", max_rows=20, highlight_cols={"Avg Daily Sales": "#10B981", "SKU": "#111827"}), unsafe_allow_html=True)
+        st.markdown(df_to_styled_table(
+            df_fm, "Fast Moving SKUs", "Top SKUs by daily sales velocity", max_rows=20,
+            highlight_cols={"Avg Daily Sales": "#10B981", "SKU": "#111827"},
+            wow_insight_html=get_table_wow_html("inv_fast_moving", "Fast Moving SKUs", "Top SKUs by daily sales velocity", df_fm),
+        ), unsafe_allow_html=True)
         fig = go.Figure(go.Bar(
             x=fast_moving["sku_id"].head(15), y=fast_moving["avg_daily_sales"].head(15),
             marker=dict(color=fast_moving["avg_daily_sales"].head(15), colorscale=[[0, "#A5B4FC"], [1, "#2563EB"]], cornerradius=4),
@@ -1030,7 +1056,11 @@ elif page == "Inventory Intelligence":
             df_ro.columns = ["SKU", "Product", "Stock", "Reorder Lvl", "Max", "Reorder Qty", "Est. Cost", "Supplier"]
             df_ro["Est. Cost"] = df_ro["Est. Cost"].apply(lambda x: f"INR {x:,.0f}")
             df_ro["Reorder Qty"] = df_ro["Reorder Qty"].astype(int)
-            st.markdown(df_to_styled_table(df_ro, "Reorder Recommendations", f"{len(reorder)} SKUs recommended for reorder", max_rows=15, highlight_cols={"Reorder Qty": "#2563EB", "Est. Cost": "#8B5CF6", "SKU": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_ro, "Reorder Recommendations", f"{len(reorder)} SKUs recommended for reorder", max_rows=15,
+                highlight_cols={"Reorder Qty": "#2563EB", "Est. Cost": "#8B5CF6", "SKU": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_reorder", "Reorder Recommendations", f"{len(reorder)} SKUs recommended for reorder", df_ro),
+            ), unsafe_allow_html=True)
             render_kpi_grid([
                 (len(reorder), "SKUs to Reorder", "alert-triangle", "red"),
                 (f"{reorder['recommended_reorder_qty'].sum():,.0f}", "Total Units Needed", "cube", "amber"),
@@ -1058,14 +1088,22 @@ elif page == "Inventory Intelligence":
                 reason_counts = dead_analysis["dead_stock_reason"].value_counts().reset_index()
                 reason_counts.columns = ["Reason", "Count"]
                 render_alert(f"<strong>Top reasons for dead stock:</strong> {', '.join(reason_counts.head(3)['Reason'].tolist())}", "warning")
-                st.markdown(df_to_styled_table(reason_counts, "Dead Stock by Reason", "Why products are not selling", highlight_cols={"Count": "#8B5CF6", "Reason": "#111827"}), unsafe_allow_html=True)
+                st.markdown(df_to_styled_table(
+                    reason_counts, "Dead Stock by Reason", "Why products are not selling",
+                    highlight_cols={"Count": "#8B5CF6", "Reason": "#111827"},
+                    wow_insight_html=get_table_wow_html("inv_dead_reason", "Dead Stock by Reason", "Why products are not selling", reason_counts),
+                ), unsafe_allow_html=True)
             cols_show = ["sku_id", "product_name", "current_stock", "days_inactive", "storage_cost_per_day", "total_storage_cost", "is_perishable", "dead_stock_reason"]
             cols_avail = [c for c in cols_show if c in dead_analysis.columns]
             df_da = dead_analysis[cols_avail].copy()
             df_da.columns = [c.replace("_", " ").title() for c in df_da.columns]
             if "Total Storage Cost" in df_da.columns:
                 df_da["Total Storage Cost"] = df_da["Total Storage Cost"].apply(lambda x: f"INR {x:,.0f}")
-            st.markdown(df_to_styled_table(df_da, "Dead Stock Detail", f"{len(dead_analysis)} items with full cost analysis", max_rows=15, highlight_cols={"Total Storage Cost": "#EF4444", "Sku Id": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_da, "Dead Stock Detail", f"{len(dead_analysis)} items with full cost analysis", max_rows=15,
+                highlight_cols={"Total Storage Cost": "#EF4444", "Sku Id": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_dead_detail", "Dead Stock Detail", f"{len(dead_analysis)} items with full cost analysis", df_da),
+            ), unsafe_allow_html=True)
         else:
             render_alert("No dead stock items detected.", "success")
         _inventory_tab_report_ui("dead_stock_analysis")
@@ -1093,8 +1131,16 @@ elif page == "Inventory Intelligence":
             df_show["inventory_value"] = df_show["inventory_value"].apply(lambda x: f"INR {x:,.0f}")
             df_show["recovery"] = df_show["recovery"].apply(lambda x: f"INR {x:,.0f}")
             df_show.columns = ["SKU", "Product", "Stock", "Dead Reason", "Strategy", "Inv. Value", "Est. Recovery"]
-            st.markdown(df_to_styled_table(df_show, "Liquidation Plan", "Strategy per dead stock item", max_rows=20, highlight_cols={"Strategy": "#2563EB", "Est. Recovery": "#10B981", "SKU": "#111827"}), unsafe_allow_html=True)
-            st.markdown(df_to_styled_table(strategy_counts, "Strategy Distribution", "Breakdown by liquidation method", highlight_cols={"Items": "#8B5CF6", "Strategy": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_show, "Liquidation Plan", "Strategy per dead stock item", max_rows=20,
+                highlight_cols={"Strategy": "#2563EB", "Est. Recovery": "#10B981", "SKU": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_liquidation", "Liquidation Plan", "Strategy per dead stock item", df_show),
+            ), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                strategy_counts, "Strategy Distribution", "Breakdown by liquidation method",
+                highlight_cols={"Items": "#8B5CF6", "Strategy": "#111827"},
+                wow_insight_html=get_table_wow_html("inv_liquidation_strat_dist", "Strategy Distribution", "Breakdown by liquidation method", strategy_counts),
+            ), unsafe_allow_html=True)
         else:
             render_alert("No dead stock items to liquidate.", "success")
         _inventory_tab_report_ui("liquidation")
@@ -1115,7 +1161,11 @@ elif page == "Inventory Intelligence":
         df_zb["utilization_pct"] = df_zb["utilization_pct"].apply(lambda x: f"{x}%")
         df_zb["potential_space_freed_pct"] = df_zb["potential_space_freed_pct"].apply(lambda x: f"{x}%")
         df_zb.columns = ["Zone", "Utilization", "Energy / month", "Dead stock units", "Dead as % of used", "Status"]
-        st.markdown(df_to_styled_table(df_zb, "Where cost hides", "Per zone: utilization, monthly energy estimate, dead units", highlight_cols={"Dead stock units": "#8B5CF6", "Zone": "#111827"}, status_col="Status"), unsafe_allow_html=True)
+        st.markdown(df_to_styled_table(
+            df_zb, "Where cost hides", "Per zone: utilization, monthly energy estimate, dead units",
+            highlight_cols={"Dead stock units": "#8B5CF6", "Zone": "#111827"}, status_col="Status",
+            wow_insight_html=get_table_wow_html("inv_resource_zones", "Where cost hides", "Per zone: utilization, monthly energy estimate, dead units", df_zb),
+        ), unsafe_allow_html=True)
         render_recommendation(1, "Clear <strong>dead stock units</strong> first to recover space and reduce per-day storage and climate cost.")
         render_recommendation(2, "Speed <strong>dispatch and picking</strong> in high-energy zones (for example cold storage) so fewer SKU-days are held under expensive conditions.")
         render_recommendation(3, "When utilization allows, <strong>consolidate SKUs</strong> out of critical zones to defer expansion and overtime.")
@@ -1179,7 +1229,11 @@ elif page == "Dispatch Intelligence":
             df_dl = filtered[["order_id", "customer_name", "sku_id", "order_quantity", "promised_dispatch_date", "delay_days", "warehouse_zone", "priority"]].sort_values("delay_days", ascending=False).copy()
             df_dl["promised_dispatch_date"] = df_dl["promised_dispatch_date"].dt.strftime("%Y-%m-%d")
             df_dl.columns = ["Order", "Customer", "SKU", "Qty", "Promised Date", "Delay (days)", "Zone", "Priority"]
-            st.markdown(df_to_styled_table(df_dl, "Delayed Orders", f"{len(filtered)} orders behind schedule", highlight_cols={"Delay (days)": "#EF4444", "Order": "#111827"}, status_col="Priority"), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_dl, "Delayed Orders", f"{len(filtered)} orders behind schedule",
+                highlight_cols={"Delay (days)": "#EF4444", "Order": "#111827"}, status_col="Priority",
+                wow_insight_html=get_table_wow_html("disp_delayed", "Delayed Orders", f"{len(filtered)} orders behind schedule", df_dl),
+            ), unsafe_allow_html=True)
         _dispatch_tab_report_ui("delayed")
 
     with tab2:
@@ -1189,7 +1243,11 @@ elif page == "Dispatch Intelligence":
             df_pn["order_date"] = df_pn["order_date"].dt.strftime("%Y-%m-%d")
             df_pn["promised_dispatch_date"] = df_pn["promised_dispatch_date"].dt.strftime("%Y-%m-%d")
             df_pn.columns = ["Order", "Customer", "SKU", "Qty", "Order Date", "Promised Date", "Zone", "Priority"]
-            st.markdown(df_to_styled_table(df_pn, "Pending Orders", f"{len(pending)} orders awaiting dispatch", highlight_cols={"Order": "#111827"}, status_col="Priority"), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_pn, "Pending Orders", f"{len(pending)} orders awaiting dispatch",
+                highlight_cols={"Order": "#111827"}, status_col="Priority",
+                wow_insight_html=get_table_wow_html("disp_pending", "Pending Orders", f"{len(pending)} orders awaiting dispatch", df_pn),
+            ), unsafe_allow_html=True)
         else:
             render_alert("No pending orders at this time.", "success")
         _dispatch_tab_report_ui("pending")
@@ -1199,14 +1257,22 @@ elif page == "Dispatch Intelligence":
         picker_errors = get_picking_errors_by_picker(picking)
         df_pe = picker_errors.round(2).copy()
         df_pe.columns = [c.replace("_", " ").title() for c in df_pe.columns]
-        st.markdown(df_to_styled_table(df_pe, "Picking Error Summary", "Error rates by picker", highlight_cols={"Total Errors": "#EF4444", "Picker Name": "#111827"}), unsafe_allow_html=True)
+        st.markdown(df_to_styled_table(
+            df_pe, "Picking Error Summary", "Error rates by picker",
+            highlight_cols={"Total Errors": "#EF4444", "Picker Name": "#111827"},
+            wow_insight_html=get_table_wow_html("disp_picking", "Picking Error Summary", "Error rates by picker", df_pe),
+        ), unsafe_allow_html=True)
         _dispatch_tab_report_ui("picking_errors")
 
     with tab4:
         render_section("Loading Bay Performance")
         df_bay = bay_stats.round(1).copy()
         df_bay.columns = [c.replace("_", " ").title() for c in df_bay.columns]
-        st.markdown(df_to_styled_table(df_bay, "Loading Bay Performance", "Dispatch metrics by loading bay", highlight_cols={"Avg Time": "#8B5CF6", "Loading Bay": "#111827", "Total Errors": "#EF4444"}), unsafe_allow_html=True)
+        st.markdown(df_to_styled_table(
+            df_bay, "Loading Bay Performance", "Dispatch metrics by loading bay",
+            highlight_cols={"Avg Time": "#8B5CF6", "Loading Bay": "#111827", "Total Errors": "#EF4444"},
+            wow_insight_html=get_table_wow_html("disp_bay", "Loading Bay Performance", "Dispatch metrics by loading bay", df_bay),
+        ), unsafe_allow_html=True)
         _dispatch_tab_report_ui("loading_bay")
 
     with tab5:
@@ -1222,7 +1288,11 @@ elif page == "Dispatch Intelligence":
                 df_dc["Avg Delay"] = df_dc["Avg Delay"].apply(lambda x: f"{x:.1f} days")
             if "Max Delay" in df_dc.columns:
                 df_dc["Max Delay"] = df_dc["Max Delay"].apply(lambda x: f"{int(x)} days")
-            st.markdown(df_to_styled_table(df_dc, "Delay Reasons Breakdown", "Root causes for all delayed and pending orders", highlight_cols={"Count": "#EF4444", "Delay Reason": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_dc, "Delay Reasons Breakdown", "Root causes for all delayed and pending orders",
+                highlight_cols={"Count": "#EF4444", "Delay Reason": "#111827"},
+                wow_insight_html=get_table_wow_html("disp_delay_causes", "Delay Reasons Breakdown", "Root causes for all delayed and pending orders", df_dc),
+            ), unsafe_allow_html=True)
             render_recommendation(1, "Address <strong>top delay reasons</strong> with targeted action plans for each root cause.")
             render_recommendation(2, "Add picking resources and staffing to zones with <strong>Picker Shortage</strong> delays.")
             render_recommendation(3, "Fix <strong>Loading Bay Bottleneck</strong> issues with load redistribution and equipment upgrades.")
@@ -1233,7 +1303,11 @@ elif page == "Dispatch Intelligence":
             render_section("Picking Error Types")
             df_err = error_analysis.copy()
             df_err.columns = [c.replace("_", " ").title() for c in df_err.columns]
-            st.markdown(df_to_styled_table(df_err, "Error Type Analysis", "Types of picking errors and their frequency", highlight_cols={"Total Errors": "#EF4444", "Error Type": "#111827"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_err, "Error Type Analysis", "Types of picking errors and their frequency",
+                highlight_cols={"Total Errors": "#EF4444", "Error Type": "#111827"},
+                wow_insight_html=get_table_wow_html("disp_error_types", "Error Type Analysis", "Types of picking errors and their frequency", df_err),
+            ), unsafe_allow_html=True)
         _dispatch_tab_report_ui("delay_root_causes")
 
     with tab6:
@@ -1249,7 +1323,11 @@ elif page == "Dispatch Intelligence":
             ], 3)
             df_bo = bay_opt[["loading_bay", "avg_time", "total_dispatches", "total_errors", "cost_per_dispatch", "efficiency_score"]].round(1).copy()
             df_bo.columns = ["Bay", "Avg Time (min)", "Dispatches", "Errors", "Cost/Dispatch (INR)", "Efficiency Score"]
-            st.markdown(df_to_styled_table(df_bo, "Bay Efficiency Ranking", "Sorted by efficiency score (higher is better)", highlight_cols={"Efficiency Score": "#10B981", "Bay": "#111827", "Cost/Dispatch (INR)": "#8B5CF6"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_bo, "Bay Efficiency Ranking", "Sorted by efficiency score (higher is better)",
+                highlight_cols={"Efficiency Score": "#10B981", "Bay": "#111827", "Cost/Dispatch (INR)": "#8B5CF6"},
+                wow_insight_html=get_table_wow_html("disp_bay_rank", "Bay Efficiency Ranking", "Sorted by efficiency score (higher is better)", df_bo),
+            ), unsafe_allow_html=True)
         route_eff = get_route_efficiency(data)
         if len(route_eff) > 0:
             render_section("Route Performance")
@@ -1262,7 +1340,11 @@ elif page == "Dispatch Intelligence":
                 df_re["Avg Distance"] = df_re["Avg Distance"].apply(lambda x: f"{x:.0f} km")
             if "Delay Pct" in df_re.columns:
                 df_re["Delay Pct"] = df_re["Delay Pct"].apply(lambda x: f"{x}%")
-            st.markdown(df_to_styled_table(df_re, "Route Performance Analysis", "Route costs, delays, and recommended vehicles", max_rows=12, highlight_cols={"Route Id": "#111827", "Delay Pct": "#EF4444", "Avg Cost": "#8B5CF6"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_re, "Route Performance Analysis", "Route costs, delays, and recommended vehicles", max_rows=12,
+                highlight_cols={"Route Id": "#111827", "Delay Pct": "#EF4444", "Avg Cost": "#8B5CF6"},
+                wow_insight_html=get_table_wow_html("disp_route", "Route Performance Analysis", "Route costs, delays, and recommended vehicles", df_re),
+            ), unsafe_allow_html=True)
         _dispatch_tab_report_ui("route_bay")
 
     with tab7:
@@ -1274,7 +1356,11 @@ elif page == "Dispatch Intelligence":
             df_ci = customer_imp.copy()
             df_ci["avg_delay"] = df_ci["avg_delay"].apply(lambda x: f"{x:.1f} days")
             df_ci.columns = ["Customer", "Delayed Orders", "Total Delay Days", "Avg Delay", "Total Qty Affected"]
-            st.markdown(df_to_styled_table(df_ci, "Customer Delay Impact", f"{len(customer_imp)} affected customers ranked by severity", max_rows=20, highlight_cols={"Delayed Orders": "#EF4444", "Customer": "#111827", "Total Delay Days": "#8B5CF6"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_ci, "Customer Delay Impact", f"{len(customer_imp)} affected customers ranked by severity", max_rows=20,
+                highlight_cols={"Delayed Orders": "#EF4444", "Customer": "#111827", "Total Delay Days": "#8B5CF6"},
+                wow_insight_html=get_table_wow_html("disp_customer", "Customer Delay Impact", f"{len(customer_imp)} affected customers ranked by severity", df_ci),
+            ), unsafe_allow_html=True)
             render_recommendation(1, "Send <strong>proactive communications</strong> to top-impacted customers with revised delivery timelines.")
             render_recommendation(2, "<strong>Expedite pending orders</strong> for customers with 3+ delayed orders to prevent churn.")
             render_recommendation(3, "Offer <strong>discount or priority shipping</strong> on next order as goodwill recovery.")
@@ -1504,7 +1590,11 @@ elif page == "Zone Intelligence":
             if "revenue_potential_per_day" in df_zt.columns:
                 df_zt["revenue_potential_per_day"] = df_zt["revenue_potential_per_day"].apply(lambda x: f"INR {x:,.0f}")
             df_zt.columns = [c.replace("_", " ").title() for c in df_zt.columns]
-            st.markdown(df_to_styled_table(df_zt, "Zone Transport & Revenue Intelligence", "Vehicle restrictions, congestion reasons, throughput, and revenue potential per zone", max_rows=10, highlight_cols={"Zone Name": "#111827", "Status": "#8B5CF6"}), unsafe_allow_html=True)
+            st.markdown(df_to_styled_table(
+                df_zt, "Zone Transport & Revenue Intelligence", "Vehicle restrictions, congestion reasons, throughput, and revenue potential per zone", max_rows=10,
+                highlight_cols={"Zone Name": "#111827", "Status": "#8B5CF6"},
+                wow_insight_html=get_table_wow_html("zone_transport", "Zone Transport & Revenue Intelligence", "Vehicle restrictions, congestion reasons, throughput, and revenue potential per zone", df_zt),
+            ), unsafe_allow_html=True)
             render_recommendation(1, "Assign <strong>right-sized vehicles</strong> based on allowed types and max capacity per zone to avoid damage and delays.")
             render_recommendation(2, "<strong>Redirect dispatch routes</strong> through zones with highest revenue potential and lowest congestion.")
             render_recommendation(3, "Monitor <strong>utilization trends</strong> to predict when zones will become critical and pre-allocate resources.")
@@ -1513,7 +1603,11 @@ elif page == "Zone Intelligence":
     df_zm = zone_util[["zone_id", "zone_name", "capacity_units", "used_units", "utilization_pct", "status", "manager_name"]].copy()
     df_zm["utilization_pct"] = df_zm["utilization_pct"].apply(lambda x: f"{x}%")
     df_zm.columns = ["Zone ID", "Zone Name", "Capacity", "Used", "Utilization", "Status", "Manager"]
-    st.markdown(df_to_styled_table(df_zm, "Zone Master Data", "Complete zone overview with utilization and status", highlight_cols={"Zone ID": "#111827", "Utilization": "#8B5CF6"}, status_col="Status"), unsafe_allow_html=True)
+    st.markdown(df_to_styled_table(
+        df_zm, "Zone Master Data", "Complete zone overview with utilization and status",
+        highlight_cols={"Zone ID": "#111827", "Utilization": "#8B5CF6"}, status_col="Status",
+        wow_insight_html=get_table_wow_html("zone_master", "Zone Master Data", "Complete zone overview with utilization and status", df_zm),
+    ), unsafe_allow_html=True)
 
     render_footer()
 

@@ -31,6 +31,7 @@ from utils.analytics import (
     generate_inventory_tab_report,
 )
 from utils.table_wow import get_table_wow_html
+from utils.row_ai_recommendations import add_per_row_ai_recommendation
 try:
     import markdown
 except ImportError:
@@ -985,6 +986,7 @@ elif page == "Inventory Intelligence":
             render_alert(f"<strong>{len(low_stock)} SKUs</strong> are at critical low stock. Immediate reorder required.", "critical")
             df_ls = low_stock[["sku_id", "product_name", "category", "warehouse_zone", "current_stock", "reorder_level", "max_stock", "supplier_name"]].copy()
             df_ls.columns = ["SKU", "Product", "Category", "Zone", "Stock", "Reorder Lvl", "Max Stock", "Supplier"]
+            df_ls = add_per_row_ai_recommendation(df_ls, "inv_low_stock")
             st.markdown(df_to_styled_table(
                 df_ls, "Low Stock Items", f"{len(low_stock)} SKUs below reorder level",
                 highlight_cols={"Stock": "#EF4444", "SKU": "#111827"},
@@ -1001,6 +1003,7 @@ elif page == "Inventory Intelligence":
             render_alert(f"<strong>{len(overstock)} SKUs</strong> are overstocked and occupying excess space.", "warning")
             df_os = overstock[["sku_id", "product_name", "category", "warehouse_zone", "current_stock", "max_stock", "unit_price"]].copy()
             df_os.columns = ["SKU", "Product", "Category", "Zone", "Stock", "Max Stock", "Unit Price"]
+            df_os = add_per_row_ai_recommendation(df_os, "inv_overstock")
             st.markdown(df_to_styled_table(
                 df_os, "Overstock Items", f"{len(overstock)} SKUs above 85% max capacity",
                 highlight_cols={"Stock": "#F59E0B", "SKU": "#111827"},
@@ -1019,6 +1022,7 @@ elif page == "Inventory Intelligence":
             render_alert(f"<strong>{len(dead_stock)} SKUs</strong> have had no movement for over 60 days.", "warning")
             df_ds = dead_display[["sku_id", "product_name", "category", "warehouse_zone", "current_stock", "days_inactive", "unit_price"]].copy()
             df_ds.columns = ["SKU", "Product", "Category", "Zone", "Stock", "Days Inactive", "Unit Price"]
+            df_ds = add_per_row_ai_recommendation(df_ds, "inv_dead_stock")
             st.markdown(df_to_styled_table(
                 df_ds, "Dead Stock Items", f"{len(dead_stock)} SKUs with no movement > 60 days",
                 highlight_cols={"Days Inactive": "#8B5CF6", "SKU": "#111827"},
@@ -1034,6 +1038,7 @@ elif page == "Inventory Intelligence":
         df_fm = fast_moving[["sku_id", "product_name", "category", "warehouse_zone", "avg_daily_sales", "current_stock", "reorder_level"]].copy()
         df_fm.columns = ["SKU", "Product", "Category", "Zone", "Avg Daily Sales", "Stock", "Reorder Lvl"]
         df_fm["Avg Daily Sales"] = df_fm["Avg Daily Sales"].round(1)
+        df_fm = add_per_row_ai_recommendation(df_fm, "inv_fast_moving")
         st.markdown(df_to_styled_table(
             df_fm, "Fast Moving SKUs", "Top SKUs by daily sales velocity", max_rows=20,
             highlight_cols={"Avg Daily Sales": "#10B981", "SKU": "#111827"},
@@ -1054,6 +1059,7 @@ elif page == "Inventory Intelligence":
         if len(reorder) > 0:
             df_ro = reorder[["sku_id", "product_name", "current_stock", "reorder_level", "max_stock", "recommended_reorder_qty", "estimated_cost", "supplier_name"]].copy()
             df_ro.columns = ["SKU", "Product", "Stock", "Reorder Lvl", "Max", "Reorder Qty", "Est. Cost", "Supplier"]
+            df_ro = add_per_row_ai_recommendation(df_ro, "inv_reorder")
             df_ro["Est. Cost"] = df_ro["Est. Cost"].apply(lambda x: f"INR {x:,.0f}")
             df_ro["Reorder Qty"] = df_ro["Reorder Qty"].astype(int)
             st.markdown(df_to_styled_table(
@@ -1087,6 +1093,7 @@ elif page == "Inventory Intelligence":
             if "dead_stock_reason" in dead_analysis.columns:
                 reason_counts = dead_analysis["dead_stock_reason"].value_counts().reset_index()
                 reason_counts.columns = ["Reason", "Count"]
+                reason_counts = add_per_row_ai_recommendation(reason_counts, "inv_dead_reason", sku_col="Reason")
                 render_alert(f"<strong>Top reasons for dead stock:</strong> {', '.join(reason_counts.head(3)['Reason'].tolist())}", "warning")
                 st.markdown(df_to_styled_table(
                     reason_counts, "Dead Stock by Reason", "Why products are not selling",
@@ -1097,6 +1104,7 @@ elif page == "Inventory Intelligence":
             cols_avail = [c for c in cols_show if c in dead_analysis.columns]
             df_da = dead_analysis[cols_avail].copy()
             df_da.columns = [c.replace("_", " ").title() for c in df_da.columns]
+            df_da = add_per_row_ai_recommendation(df_da, "inv_dead_detail", sku_col="Sku Id")
             if "Total Storage Cost" in df_da.columns:
                 df_da["Total Storage Cost"] = df_da["Total Storage Cost"].apply(lambda x: f"INR {x:,.0f}")
             st.markdown(df_to_styled_table(
@@ -1126,11 +1134,13 @@ elif page == "Inventory Intelligence":
             ], 4)
             strategy_counts = df_strat["strategy"].value_counts().reset_index()
             strategy_counts.columns = ["Strategy", "Items"]
+            strategy_counts = add_per_row_ai_recommendation(strategy_counts, "inv_strat_dist", sku_col="Strategy")
             render_alert(f"<strong>Recovery plan:</strong> {len(df_strat)} items analyzed. Potential to recover <strong>INR {total_recovery:,.0f}</strong> ({(total_recovery/max(total_value,1)*100):.0f}% of tied-up value).", "info")
             df_show = df_strat[["sku_id", "product_name", "stock", "reason", "strategy", "inventory_value", "recovery"]].copy()
             df_show["inventory_value"] = df_show["inventory_value"].apply(lambda x: f"INR {x:,.0f}")
             df_show["recovery"] = df_show["recovery"].apply(lambda x: f"INR {x:,.0f}")
             df_show.columns = ["SKU", "Product", "Stock", "Dead Reason", "Strategy", "Inv. Value", "Est. Recovery"]
+            df_show = add_per_row_ai_recommendation(df_show, "inv_liquidation")
             st.markdown(df_to_styled_table(
                 df_show, "Liquidation Plan", "Strategy per dead stock item", max_rows=20,
                 highlight_cols={"Strategy": "#2563EB", "Est. Recovery": "#10B981", "SKU": "#111827"},
@@ -1161,6 +1171,7 @@ elif page == "Inventory Intelligence":
         df_zb["utilization_pct"] = df_zb["utilization_pct"].apply(lambda x: f"{x}%")
         df_zb["potential_space_freed_pct"] = df_zb["potential_space_freed_pct"].apply(lambda x: f"{x}%")
         df_zb.columns = ["Zone", "Utilization", "Energy / month", "Dead stock units", "Dead as % of used", "Status"]
+        df_zb = add_per_row_ai_recommendation(df_zb, "inv_resource_zones", sku_col="Zone")
         st.markdown(df_to_styled_table(
             df_zb, "Where cost hides", "Per zone: utilization, monthly energy estimate, dead units",
             highlight_cols={"Dead stock units": "#8B5CF6", "Zone": "#111827"}, status_col="Status",
@@ -1229,6 +1240,7 @@ elif page == "Dispatch Intelligence":
             df_dl = filtered[["order_id", "customer_name", "sku_id", "order_quantity", "promised_dispatch_date", "delay_days", "warehouse_zone", "priority"]].sort_values("delay_days", ascending=False).copy()
             df_dl["promised_dispatch_date"] = df_dl["promised_dispatch_date"].dt.strftime("%Y-%m-%d")
             df_dl.columns = ["Order", "Customer", "SKU", "Qty", "Promised Date", "Delay (days)", "Zone", "Priority"]
+            df_dl = add_per_row_ai_recommendation(df_dl, "disp_delayed", sku_col="Order")
             st.markdown(df_to_styled_table(
                 df_dl, "Delayed Orders", f"{len(filtered)} orders behind schedule",
                 highlight_cols={"Delay (days)": "#EF4444", "Order": "#111827"}, status_col="Priority",
@@ -1243,6 +1255,7 @@ elif page == "Dispatch Intelligence":
             df_pn["order_date"] = df_pn["order_date"].dt.strftime("%Y-%m-%d")
             df_pn["promised_dispatch_date"] = df_pn["promised_dispatch_date"].dt.strftime("%Y-%m-%d")
             df_pn.columns = ["Order", "Customer", "SKU", "Qty", "Order Date", "Promised Date", "Zone", "Priority"]
+            df_pn = add_per_row_ai_recommendation(df_pn, "disp_pending", sku_col="Order")
             st.markdown(df_to_styled_table(
                 df_pn, "Pending Orders", f"{len(pending)} orders awaiting dispatch",
                 highlight_cols={"Order": "#111827"}, status_col="Priority",
@@ -1257,6 +1270,7 @@ elif page == "Dispatch Intelligence":
         picker_errors = get_picking_errors_by_picker(picking)
         df_pe = picker_errors.round(2).copy()
         df_pe.columns = [c.replace("_", " ").title() for c in df_pe.columns]
+        df_pe = add_per_row_ai_recommendation(df_pe, "disp_picking", sku_col="Picker Name")
         st.markdown(df_to_styled_table(
             df_pe, "Picking Error Summary", "Error rates by picker",
             highlight_cols={"Total Errors": "#EF4444", "Picker Name": "#111827"},
@@ -1268,6 +1282,7 @@ elif page == "Dispatch Intelligence":
         render_section("Loading Bay Performance")
         df_bay = bay_stats.round(1).copy()
         df_bay.columns = [c.replace("_", " ").title() for c in df_bay.columns]
+        df_bay = add_per_row_ai_recommendation(df_bay, "disp_bay", sku_col="Loading Bay")
         st.markdown(df_to_styled_table(
             df_bay, "Loading Bay Performance", "Dispatch metrics by loading bay",
             highlight_cols={"Avg Time": "#8B5CF6", "Loading Bay": "#111827", "Total Errors": "#EF4444"},
@@ -1284,6 +1299,7 @@ elif page == "Dispatch Intelligence":
             cols_show = [c for c in ["delay_reason", "count", "avg_delay", "max_delay"] if c in delay_causes.columns]
             df_dc = delay_causes[cols_show].copy()
             df_dc.columns = [c.replace("_", " ").title() for c in df_dc.columns]
+            df_dc = add_per_row_ai_recommendation(df_dc, "disp_delay_causes", sku_col="Delay Reason")
             if "Avg Delay" in df_dc.columns:
                 df_dc["Avg Delay"] = df_dc["Avg Delay"].apply(lambda x: f"{x:.1f} days")
             if "Max Delay" in df_dc.columns:
@@ -1303,6 +1319,7 @@ elif page == "Dispatch Intelligence":
             render_section("Picking Error Types")
             df_err = error_analysis.copy()
             df_err.columns = [c.replace("_", " ").title() for c in df_err.columns]
+            df_err = add_per_row_ai_recommendation(df_err, "disp_error_types", sku_col="Error Type")
             st.markdown(df_to_styled_table(
                 df_err, "Error Type Analysis", "Types of picking errors and their frequency",
                 highlight_cols={"Total Errors": "#EF4444", "Error Type": "#111827"},
@@ -1323,6 +1340,7 @@ elif page == "Dispatch Intelligence":
             ], 3)
             df_bo = bay_opt[["loading_bay", "avg_time", "total_dispatches", "total_errors", "cost_per_dispatch", "efficiency_score"]].round(1).copy()
             df_bo.columns = ["Bay", "Avg Time (min)", "Dispatches", "Errors", "Cost/Dispatch (INR)", "Efficiency Score"]
+            df_bo = add_per_row_ai_recommendation(df_bo, "disp_bay_rank", sku_col="Bay")
             st.markdown(df_to_styled_table(
                 df_bo, "Bay Efficiency Ranking", "Sorted by efficiency score (higher is better)",
                 highlight_cols={"Efficiency Score": "#10B981", "Bay": "#111827", "Cost/Dispatch (INR)": "#8B5CF6"},
@@ -1334,6 +1352,7 @@ elif page == "Dispatch Intelligence":
             cols_show = [c for c in ["route_id", "route_name", "route_type", "orders", "avg_distance", "avg_cost", "delayed", "delay_pct", "congestion_level", "best_vehicle"] if c in route_eff.columns]
             df_re = route_eff[cols_show].copy()
             df_re.columns = [c.replace("_", " ").title() for c in df_re.columns]
+            df_re = add_per_row_ai_recommendation(df_re, "disp_route", sku_col="Route Id")
             if "Avg Cost" in df_re.columns:
                 df_re["Avg Cost"] = df_re["Avg Cost"].apply(lambda x: f"INR {x:,.0f}")
             if "Avg Distance" in df_re.columns:
@@ -1356,6 +1375,7 @@ elif page == "Dispatch Intelligence":
             df_ci = customer_imp.copy()
             df_ci["avg_delay"] = df_ci["avg_delay"].apply(lambda x: f"{x:.1f} days")
             df_ci.columns = ["Customer", "Delayed Orders", "Total Delay Days", "Avg Delay", "Total Qty Affected"]
+            df_ci = add_per_row_ai_recommendation(df_ci, "disp_customer", sku_col="Customer")
             st.markdown(df_to_styled_table(
                 df_ci, "Customer Delay Impact", f"{len(customer_imp)} affected customers ranked by severity", max_rows=20,
                 highlight_cols={"Delayed Orders": "#EF4444", "Customer": "#111827", "Total Delay Days": "#8B5CF6"},
@@ -1590,6 +1610,7 @@ elif page == "Zone Intelligence":
             if "revenue_potential_per_day" in df_zt.columns:
                 df_zt["revenue_potential_per_day"] = df_zt["revenue_potential_per_day"].apply(lambda x: f"INR {x:,.0f}")
             df_zt.columns = [c.replace("_", " ").title() for c in df_zt.columns]
+            df_zt = add_per_row_ai_recommendation(df_zt, "zone_transport", sku_col="Zone Name")
             st.markdown(df_to_styled_table(
                 df_zt, "Zone Transport & Revenue Intelligence", "Vehicle restrictions, congestion reasons, throughput, and revenue potential per zone", max_rows=10,
                 highlight_cols={"Zone Name": "#111827", "Status": "#8B5CF6"},
@@ -1603,6 +1624,7 @@ elif page == "Zone Intelligence":
     df_zm = zone_util[["zone_id", "zone_name", "capacity_units", "used_units", "utilization_pct", "status", "manager_name"]].copy()
     df_zm["utilization_pct"] = df_zm["utilization_pct"].apply(lambda x: f"{x}%")
     df_zm.columns = ["Zone ID", "Zone Name", "Capacity", "Used", "Utilization", "Status", "Manager"]
+    df_zm = add_per_row_ai_recommendation(df_zm, "zone_master", sku_col="Zone ID")
     st.markdown(df_to_styled_table(
         df_zm, "Zone Master Data", "Complete zone overview with utilization and status",
         highlight_cols={"Zone ID": "#111827", "Utilization": "#8B5CF6"}, status_col="Status",

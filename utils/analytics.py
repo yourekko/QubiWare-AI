@@ -33,8 +33,10 @@ def df_to_styled_table(df, title="", subtitle="", max_rows=15, highlight_cols=No
     h += '<div style="overflow-x:auto;">'
     h += '<table style="width:100%;border-collapse:collapse;font-size:0.78rem;">'
     h += '<thead><tr style="background:#F8FAFC;">'
+    _ai_col = "AI Recommendation"
     for col in df_display.columns:
-        h += f'<th style="padding:10px 14px;text-align:left;font-weight:700;color:#64748B;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid #E5E7EB;white-space:nowrap;">{col}</th>'
+        th_ws = "white-space:normal;max-width:260px;" if col == _ai_col else "white-space:nowrap;"
+        h += f'<th style="padding:10px 14px;text-align:left;font-weight:700;color:#64748B;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid #E5E7EB;{th_ws}">{col}</th>'
     h += '</tr></thead><tbody>'
 
     status_colors = {"Critical": "#EF4444", "Warning": "#F59E0B", "Normal": "#10B981",
@@ -50,7 +52,12 @@ def df_to_styled_table(df, title="", subtitle="", max_rows=15, highlight_cols=No
             color = highlight_cols.get(col, '#374151')
             fw = '600' if j == 0 else '400'
 
-            if status_col and col == status_col and str(val) in status_colors:
+            if col == _ai_col:
+                h += (
+                    f'<td style="padding:8px 14px;color:#4338CA;font-weight:500;white-space:normal;'
+                    f'max-width:280px;line-height:1.45;border-bottom:1px solid #F3F4F6;">{val}</td>'
+                )
+            elif status_col and col == status_col and str(val) in status_colors:
                 sc = status_colors[str(val)]
                 cell = f'<span style="background:{sc}12;color:{sc};font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:6px;white-space:nowrap;">{val}</span>'
                 h += f'<td style="padding:8px 14px;border-bottom:1px solid #F3F4F6;">{cell}</td>'
